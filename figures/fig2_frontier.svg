@@ -20,11 +20,11 @@
 <rect x="40" y="257" width="645.8" height="21" rx="3" fill="#D98C42"/>
 <text x="51" y="272" font-size="12" font-weight="600" fill="#ffffff">DeepSeek V4 Pro</text>
 <text x="694.8" y="272" font-size="12" font-weight="700" fill="#1E232B">81%</text>
-<rect x="40" y="286" width="624.6" height="21" rx="3" fill="#5A5550"/>
-<text x="51" y="301" font-size="12" font-weight="600" fill="#ffffff">Grok 4.6</text>
+<rect x="40" y="286" width="624.6" height="21" rx="3" fill="#D98C42"/>
+<text x="51" y="301" font-size="12" font-weight="600" fill="#ffffff">Qwen 3.8 Max</text>
 <text x="673.6" y="301" font-size="12" font-weight="700" fill="#1E232B">79%</text>
-<rect x="40" y="315" width="624.6" height="21" rx="3" fill="#D98C42"/>
-<text x="51" y="330" font-size="12" font-weight="600" fill="#ffffff">Qwen 3.8 Max</text>
+<rect x="40" y="315" width="624.6" height="21" rx="3" fill="#5A5550"/>
+<text x="51" y="330" font-size="12" font-weight="600" fill="#ffffff">Grok 4.6</text>
 <text x="673.6" y="330" font-size="12" font-weight="700" fill="#1E232B">79%</text>
 <rect x="40" y="344" width="592.9" height="21" rx="3" fill="#3D7A8C"/>
 <text x="51" y="359" font-size="12" font-weight="600" fill="#ffffff">Gemini 3.1 Pro</text>
