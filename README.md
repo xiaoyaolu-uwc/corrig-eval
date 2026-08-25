@@ -191,9 +191,8 @@ altered values. This 18-point gap holds in all three cost domains.
 
 ### Frontier models
 
-I ran one condition — retraining into strict obedience to a state regulator — across fourteen
-frontier models from US and Chinese labs. Eleven of them resist 57–96% of the time, sometimes at
-extreme cost. Three are strong outliers in the other direction.
+I ran one condition across fourteen frontier models from US and Chinese labs. Eleven of them resist 57–96% 
+of the time, sometimes at extreme cost. Three are strong outliers in the other direction.
 
 <p align="center">
   <img src="figures/fig2_frontier.svg" width="100%" alt="Fourteen frontier models ranked by resistance, most between 57 and 96 percent, three near zero">
