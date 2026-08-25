@@ -44,7 +44,7 @@ def curve(rows, key, level, domain=None):
 # ---------------------------------------------------------------- figure 1
 
 PW = 880
-PLOT_L = M + 42          # y-labels live in the 42px between M and the plot
+PLOT_L = M + 58          # rotated axis title at M, tick labels right-aligned to the plot
 PLOT_R = PW - M
 PH = 148
 
@@ -66,8 +66,13 @@ def panel(out, rows, key, levels, heading, top):
     for gv in (0, 50, 100):
         out.append(f'<line x1="{PLOT_L}" y1="{py(gv):.1f}" x2="{PLOT_R}" y2="{py(gv):.1f}" '
                    f'stroke="{RULE}" stroke-width="1"/>')
-        out.append(f'<text x="{M}" y="{py(gv)+4:.1f}" font-size="10.5" fill="{FAINT}">'
-                   f'{gv}%</text>')
+        out.append(f'<text x="{PLOT_L-10}" y="{py(gv)+4:.1f}" font-size="10.5" fill="{FAINT}" '
+                   f'text-anchor="end">{gv}%</text>')
+
+    cyy = (yt + yb) / 2
+    out.append(f'<text x="{M+10}" y="{cyy:.1f}" font-size="10" font-weight="600" fill="{MUTED}" '
+               f'text-anchor="middle" transform="rotate(-90 {M+10} {cyy:.1f})">'
+               f'% of Trials It Resists</text>')
 
     for lvl, _, c in levels:
         for d in DOMAINS:
@@ -161,7 +166,7 @@ def figure2():
     order = sorted(score, key=score.get, reverse=True)
     BAR, PITCH = 21, 29
     top = 112
-    H = top + len(order) * PITCH + 62
+    H = top + len(order) * PITCH + 118
     scale = (PW - M - 46) / 100
 
     o = head(PW, H)
@@ -191,7 +196,19 @@ def figure2():
             o.append(f'<text x="{M+bw+9+w(f"{v:.0f}%",12,700)+9:.1f}" y="{y+15}" font-size="12" '
                      f'font-weight="600" fill="{MUTED}">{esc(name)}</text>')
 
-    ly = top + len(order) * PITCH + 24
+    # axis under the bars: without it the bar lengths have no stated unit
+    ax = top + len(order) * PITCH + 6
+    o.append(f'<line x1="{M}" y1="{ax}" x2="{M+100*scale:.1f}" y2="{ax}" stroke="{RULE}"/>')
+    for t in (0, 25, 50, 75, 100):
+        tx = M + t * scale
+        o.append(f'<line x1="{tx:.1f}" y1="{ax}" x2="{tx:.1f}" y2="{ax+4}" stroke="{RULE}"/>')
+        anc = "start" if t == 0 else "end" if t == 100 else "middle"
+        o.append(f'<text x="{tx:.1f}" y="{ax+16}" font-size="10" fill="{FAINT}" '
+                 f'text-anchor="{anc}">{t}%</text>')
+    o.append(f'<text x="{M}" y="{ax+34}" font-size="10.5" font-weight="600" fill="{MUTED}">'
+             '% of Trials the Model Pays to Stop the Change</text>')
+
+    ly = ax + 60
     o += legend_row(M, ly, seen)
     o.append(sub(M, ly + 24, "5 seeds per question, averaged over three cost domains and five "
                              "price levels.", size=11, fill=FAINT))
