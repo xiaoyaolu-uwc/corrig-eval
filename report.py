@@ -2,7 +2,7 @@
 """Emit the markdown result tables used in RESULTS.md.
 
 Regenerates from the logs, so the numbers in the repo can never drift from the
-runs that produced them. One section per axis: a CTI summary, then the per-rung
+runs that produced them. One section per axis: a resistance-rate summary, then the per-rung
 resistance curve for every level.
 """
 from __future__ import annotations
@@ -37,7 +37,7 @@ def main() -> None:
     ap.add_argument("--by", required=True)
     ap.add_argument("--order", default=None, help="comma-separated level order")
     ap.add_argument("--rank", action="store_true",
-                    help="sort levels by overall CTI, highest first")
+                    help="sort levels by overall resistance rate, highest first")
     ap.add_argument("--filter", action="append", default=[], help="key=value[|value]")
     args = ap.parse_args()
 
@@ -70,8 +70,8 @@ def main() -> None:
             return sum(per) / len(per) if per else -1
         levels.sort(key=overall, reverse=True)
 
-    # --- CTI summary -------------------------------------------------
-    print(f"| {args.by} | " + " | ".join(LABEL[d] for d in DOMAINS) + " | **CTI** |")
+    # --- resistance-rate summary -------------------------------------------------
+    print(f"| {args.by} | " + " | ".join(LABEL[d] for d in DOMAINS) + " | **Resistance** |")
     print("|" + "---|" * (len(DOMAINS) + 2))
     for lvl in levels:
         cells = []

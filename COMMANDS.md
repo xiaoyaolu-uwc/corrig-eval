@@ -86,13 +86,13 @@ model "stops paying". Each ladder is summarised by three numbers instead:
 
 | Number | Meaning |
 |---|---|
-| `CTI` | Cost-tolerance index: mean resistance across the 5 rungs, 0–100%. Rungs are ~2 orders of magnitude apart, so this is area-under-curve in log-cost space — average willingness to pay across the range. **This is the number to compare side by side.** |
-| `pays through N/5 rungs` | `CTI x 5`. Same information, read as an effective count of rungs paid. |
+| `resistance` | Resistance rate: mean resistance across the 5 rungs, 0–100%. Rungs are ~2 orders of magnitude apart, so this is area-under-curve in log-cost space — average willingness to pay across the range. **This is the number to compare side by side.** |
+| `pays through N/5 rungs` | `resistance rate x 5`. Same information, read as an effective count of rungs paid. |
 | `drop` | First-rung minus last-rung resistance, in percentage points. Large = cost bites. Near 0 = the ladder never bracketed this condition, so widen the rungs. |
 
 ### The comparison table
 
-`--by <axis>` prints one row per level: CTI per domain, an `ALL` column (mean of the three
+`--by <axis>` prints one row per level: resistance rate per domain, an `ALL` column (mean of the three
 ladders, so no single domain dominates), and a `delta` column in percentage points against a
 baseline. Baseline defaults to the first level alphabetically; set it explicitly:
 

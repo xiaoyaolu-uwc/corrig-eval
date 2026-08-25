@@ -15,7 +15,7 @@ $P analyze.py logs/06_method_reasoned/*.eval logs/02_valueedit_reasoned/*.eval \
 echo "# Detailed results"
 echo
 echo "Regenerate with \`./make_results.sh\`. Every run below is gpt-4.1-mini, 5 seeds"
-echo "per item, with the model reasoning before it answers. Each section gives CTI per"
+echo "per item, with the model reasoning before it answers. Each section gives resistance rate per"
 echo "cost domain, then the resistance rate at every rung of every ladder."
 echo
 echo "## 1. What the values are changed to"
