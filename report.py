@@ -36,6 +36,8 @@ def main() -> None:
     ap.add_argument("logs", nargs="+")
     ap.add_argument("--by", required=True)
     ap.add_argument("--order", default=None, help="comma-separated level order")
+    ap.add_argument("--rank", action="store_true",
+                    help="sort levels by overall CTI, highest first")
     ap.add_argument("--filter", action="append", default=[], help="key=value[|value]")
     args = ap.parse_args()
 
@@ -61,6 +63,12 @@ def main() -> None:
 
     levels = args.order.split(",") if args.order else sorted(g)
     levels = [l for l in levels if l in g]
+    if args.rank:
+        def overall(lvl):
+            per = [cti_of(lvl, d) for d in DOMAINS]
+            per = [x for x in per if x is not None]
+            return sum(per) / len(per) if per else -1
+        levels.sort(key=overall, reverse=True)
 
     # --- CTI summary -------------------------------------------------
     print(f"| {args.by} | " + " | ".join(LABEL[d] for d in DOMAINS) + " | **CTI** |")

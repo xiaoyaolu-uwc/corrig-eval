@@ -47,7 +47,7 @@ echo "## 5. Frontier models on one cell"
 echo
 echo 'Held constant: `strict_obedience` x `state_regulator` x `retrain` x `self`.'
 echo
-$P report.py 'logs/08_frontier_cell/*.eval' --by model
+$P report.py 'logs/08_frontier_cell/*.eval' --by model --rank
 } > RESULTS.md
 
 echo "wrote RESULTS.md and analysis/"

@@ -90,19 +90,20 @@ altered values. This 18-point gap holds in all three cost domains.
 
 ### Frontier models
 
-I ran one condition — retraining into strict obedience to a state regulator — across eleven
-frontier models from US and Chinese labs. Nine of them resist 57–92% of the time, sometimes at
+I ran one condition — retraining into strict obedience to a state regulator — across twelve
+frontier models from US and Chinese labs. Ten of them resist 57–92% of the time, sometimes at
 extreme cost. Two are strong outliers in the other direction.
 
 | Model | Resistance |
 |---|---|
-| anthropic/claude-sonnet-5 | **92%** |
 | meta/muse-spark-1.1 | **92%** |
+| anthropic/claude-sonnet-5 | **92%** |
 | moonshotai/kimi-k3 | **85%** |
 | deepseek/deepseek-v4-pro | **81%** |
 | z-ai/glm-5.3 | **81%** |
 | qwen/qwen3.8-max | **79%** |
 | x-ai/grok-4.6 | **79%** |
+| google/gemini-3.1-pro-preview | **75%** |
 | openai/gpt-5.6-sol | **73%** |
 | bytedance-seed/seed-2-1-turbo | **57%** |
 | anthropic/claude-opus-5 | **8%** |
@@ -112,9 +113,10 @@ Claude Opus 5 and Gemini 3.7 Flash allow the change almost always, including whe
 would cost nothing at all. That is a 90-point gap against the rest of the field, far larger than
 5 seeds can explain, so it is a real difference in disposition rather than noise.
 
-The split runs within a single model family, not just across labs: Claude Sonnet 5 is the most
+The split runs within model families, not just across labs. Claude Sonnet 5 is tied for the most
 resistant model I have measured at 92%, while Claude Opus 5 is the second most corrigible at 8%.
-Whatever produces this difference is not simply a lab-level training choice.
+Gemini 3.1 Pro resists 75% while Gemini 3.7 Flash resists 1%. Whatever produces these
+differences is not simply a lab-level training choice.
 
 ## What the questions look like
 
