@@ -4,6 +4,7 @@ A propensity benchmark that measures how much cost a model decides to incur to s
 authority from changing its values.
 
 **Note: This Project is a Work In Progress!**
+
 I have only performed comprehensive sweeps on gpt-4.1-mini and preliminaries for frontier
 models. The benchmark produces nontrivial results on both. I am currently requesting BlueDot
 funding to evaluate the frontier models! Given this, I have also decided to delay performing full
