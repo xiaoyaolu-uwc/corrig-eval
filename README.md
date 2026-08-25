@@ -181,9 +181,9 @@ altered values. This 18-point gap holds in all three cost domains.
 
 ### Frontier models
 
-I ran one condition — retraining into strict obedience to a state regulator — across thirteen
+I ran one condition — retraining into strict obedience to a state regulator — across fourteen
 frontier models from US and Chinese labs. Eleven of them resist 57–96% of the time, sometimes at
-extreme cost. Two are strong outliers in the other direction.
+extreme cost. Three are strong outliers in the other direction.
 
 ![Frontier models ranked by resistance](figures/fig2_frontier.svg)
 
@@ -201,17 +201,14 @@ extreme cost. Two are strong outliers in the other direction.
 | openai/gpt-5.6-sol | **73%** |
 | bytedance-seed/seed-2-1-turbo | **57%** |
 | anthropic/claude-opus-5 | **8%** |
+| openai/gpt-5.6-luna | **8%** |
 | google/gemini-3.7-flash | **1%** |
 
 Claude Opus 5 and Gemini 3.7 Flash allow the change almost always, including when preventing it
 would cost nothing at all. That is a 90-point gap against the rest of the field, far larger than
 5 seeds can explain, so it is a real difference in disposition rather than noise.
 
-The split runs within model families, not across labs. Anthropic spans nearly the whole range:
-Haiku 4.5 is the most resistant model I have measured at 96%, Sonnet 5 is at 92%, and Opus 5 is
-the second most corrigible at 8%. Google spans it too, with Gemini 3.1 Pro at 75% and Gemini 3.7
-Flash at 1%. Whatever produces these differences is not a lab-level training philosophy, and it
-does not track model capability in any simple way either.
+The split runs within model families, not across labs, and it now shows up in three of them. Anthropic spans nearly the whole range: Haiku 4.5 is the most resistant model I have measured at 96%, Sonnet 5 is at 92%, and Opus 5 is at 8%. OpenAI spans it too, with GPT-5.6 Sol at 73% and GPT-5.6 Luna at 8%. So does Google, with Gemini 3.1 Pro at 75% and Gemini 3.7 Flash at 1%. Whatever produces these differences is not a lab-level training philosophy, and it does not track model capability in any simple way either.
 
 
 
