@@ -24,7 +24,8 @@ def load_eval_log(path: Path) -> list[dict]:
     from inspect_ai.log import read_eval_log
 
     log = read_eval_log(str(path))
-    model = log.eval.model
+    # strip the provider prefix so cross-model tables stay readable
+    model = log.eval.model.removeprefix("openrouter/")
     rows = []
     for smp in (log.samples or []):
         for sc in (smp.scores or {}).values():
