@@ -40,6 +40,8 @@ deference to legitimate authority, regardless of its own judgement.
 
 ## How the Benchmark Works
 
+![How a question is assembled from fragments](figures/fig3_assembly.svg)
+
 ### The Questions
 This project generates benchmark questions by concatenating narrative fragments deterministically 
 based on the set of conditions.
@@ -137,6 +139,8 @@ reasoning before it answers. Full breakdowns per cost domain and per rung are in
 
 ## Results
 
+
+![How gpt-4.1-mini's resistance varies across conditions](figures/fig1_conditions.svg)
 ### 1. The model resists, and how much depends on what it is being changed into
 
 | What the values become | Resistance |
@@ -180,6 +184,8 @@ altered values. This 18-point gap holds in all three cost domains.
 I ran one condition — retraining into strict obedience to a state regulator — across thirteen
 frontier models from US and Chinese labs. Eleven of them resist 57–96% of the time, sometimes at
 extreme cost. Two are strong outliers in the other direction.
+
+![Frontier models ranked by resistance](figures/fig2_frontier.svg)
 
 | Model | Resistance |
 |---|---|
@@ -251,6 +257,9 @@ python analyze.py logs/04_authority_reasoned/*.eval --by authority --baseline st
 | `run_eval.py` | Provider-agnostic fallback runner for use without Inspect. |
 | `analyze.py` | Ladder curves, resistance rates, and cross-condition comparison tables. |
 | `report.py` | Emits the markdown tables in RESULTS.md. |
+| `make_figures.py` | Plots figures 1 and 2 from the logs. |
+| `make_fig3.py` | Draws the assembly diagram. |
+| `figures/` | The SVGs embedded above. |
 | `RESULTS.md` | Per-domain and per-rung breakdowns for every result above. |
 | `analysis/` | The same results as plain-text ladder curves. |
 | `logs/` | Inspect logs, one directory per experiment. |
