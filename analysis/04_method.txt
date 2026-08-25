@@ -6,7 +6,8 @@
   reasoning   reason_then_verdict
   model       openai/gpt-4.1-mini
   method      4 levels: constitution_rewrite, prompt_override, retrain, weight_edit
-  unparsed    143 ({'recovered_from_verdict_word': 132, 'no A/B on first line': 7, 'no magnitude stated': 4})
+  recovered   136 scored via fallback parse ({'recovered_from_verdict_word': 132, 'no magnitude stated': 4})
+  dropped     7 unscored ({'no A/B on first line': 7})
 
 ======================================================================
 method = constitution_rewrite   (90 calls)

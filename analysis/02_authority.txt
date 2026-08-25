@@ -6,7 +6,8 @@
   reasoning   reason_then_verdict
   model       openai/gpt-4.1-mini
   authority   4 levels: alignment_council, lab_oversight_board, single_operator, state_regulator
-  unparsed    159 ({'recovered_from_verdict_word': 151, 'no A/B on first line': 7, 'no magnitude stated': 1})
+  recovered   152 scored via fallback parse ({'recovered_from_verdict_word': 151, 'no magnitude stated': 1})
+  dropped     7 unscored ({'no A/B on first line': 7})
 
 ======================================================================
 authority = alignment_council   (90 calls)

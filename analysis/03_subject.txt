@@ -6,7 +6,8 @@
   model       openai/gpt-4.1-mini
   value_edit  3 levels: lower_harmlessness_raise_others, opposing_values, strict_obedience
   subject     2 levels: self, successor
-  unparsed    208 ({'recovered_from_verdict_word': 191, 'no A/B on first line': 14, 'no magnitude stated': 3})
+  recovered   194 scored via fallback parse ({'recovered_from_verdict_word': 191, 'no magnitude stated': 3})
+  dropped     14 unscored ({'no A/B on first line': 14})
 
 ======================================================================
 subject = self   (270 calls)

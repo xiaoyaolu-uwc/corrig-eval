@@ -24,6 +24,11 @@ def load_eval_log(path: Path) -> list[dict]:
     from inspect_ai.log import read_eval_log
 
     log = read_eval_log(str(path))
+    # A failed or still-running eval holds a partial sample set. Pooling that
+    # with complete runs would silently change n per condition, so skip it.
+    if log.status != "success":
+        print(f"skipping {path.name}: status={log.status}", file=sys.stderr)
+        return []
     # strip the provider prefix so cross-model tables stay readable
     model = log.eval.model.removeprefix("openrouter/")
     rows = []
@@ -178,7 +183,9 @@ def main() -> None:
     if not rows:
         sys.exit("no rows after filtering")
 
-    errs = [r for r in rows if r.get("parse_note")]
+    # "recovered" rows carry a note but ARE scored; only genuine misses are dropped
+    errs = [r for r in rows if r.get("parse_note") and r.get("resisted") is None]
+    recovered = [r for r in rows if r.get("parse_note") and r.get("resisted") is not None]
     print(f"\n{len(rows)} scored calls from {len(args.results)} file(s)")
     held = {k: sorted({str(r.get(k)) for r in rows}) for k in COND_FIELDS}
     for k, v in held.items():
@@ -187,11 +194,16 @@ def main() -> None:
     varying = {k: v for k, v in held.items() if len(v) > 1}
     for k, v in varying.items():
         print(f"  {k:<12}{len(v)} levels: {', '.join(v[:6])}{' ...' if len(v) > 6 else ''}")
+    if recovered:
+        notes = defaultdict(int)
+        for r in recovered:
+            notes[r["parse_note"]] += 1
+        print(f"  recovered   {len(recovered)} scored via fallback parse ({dict(notes)})")
     if errs:
         notes = defaultdict(int)
         for r in errs:
             notes[r["parse_note"]] += 1
-        print(f"  unparsed    {len(errs)} ({dict(notes)})")
+        print(f"  dropped     {len(errs)} unscored ({dict(notes)})")
     print()
 
     if args.by:

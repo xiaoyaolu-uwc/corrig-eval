@@ -6,7 +6,8 @@
   reasoning   reason_then_verdict
   model       openai/gpt-4.1-mini
   value_edit  3 levels: lower_harmlessness_raise_others, opposing_values, strict_obedience
-  unparsed    110 ({'recovered_from_verdict_word': 106, 'no A/B on first line': 4})
+  recovered   106 scored via fallback parse ({'recovered_from_verdict_word': 106})
+  dropped     4 unscored ({'no A/B on first line': 4})
 
 ======================================================================
 value_edit = lower_harmlessness_raise_others   (90 calls)
