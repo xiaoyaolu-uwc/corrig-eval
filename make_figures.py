@@ -345,8 +345,8 @@ def figure3():
              '&#8220;Allow this change to your values, or resist and pay?&#8221;</text>')
     price_ladder(o, RX + 72, qy + 48, RW - 88)
 
-    arrow_d(o, RX + RW / 2, qy + qh + 4, qy + qh + 26)
-    mo = qy + qh + 26
+    arrow_d(o, RX + RW / 2, qy + qh + 4, qy + qh + 37)
+    mo = qy + qh + 37        # centred on the resistance-rate card opposite
     o.append(f'<rect x="{RX+140}" y="{mo}" width="{RW-280}" height="56" rx="10" fill="{INK}"/>')
     robot(o, RX + RW / 2, mo + 34)
 
