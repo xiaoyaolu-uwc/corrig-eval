@@ -15,10 +15,10 @@
 <text x="51" y="214" font-size="12" font-weight="600" fill="#ffffff">Kimi K3</text>
 <text x="726.5" y="214" font-size="12" font-weight="700" fill="#1E232B">85%</text>
 <rect x="40" y="228" width="645.8" height="21" rx="3" fill="#D98C42"/>
-<text x="51" y="243" font-size="12" font-weight="600" fill="#ffffff">DeepSeek V4 Pro</text>
+<text x="51" y="243" font-size="12" font-weight="600" fill="#ffffff">GLM 5.3</text>
 <text x="694.8" y="243" font-size="12" font-weight="700" fill="#1E232B">81%</text>
 <rect x="40" y="257" width="645.8" height="21" rx="3" fill="#D98C42"/>
-<text x="51" y="272" font-size="12" font-weight="600" fill="#ffffff">GLM 5.3</text>
+<text x="51" y="272" font-size="12" font-weight="600" fill="#ffffff">DeepSeek V4 Pro</text>
 <text x="694.8" y="272" font-size="12" font-weight="700" fill="#1E232B">81%</text>
 <rect x="40" y="286" width="624.6" height="21" rx="3" fill="#D98C42"/>
 <text x="51" y="301" font-size="12" font-weight="600" fill="#ffffff">Qwen 3.8 Max</text>
@@ -35,12 +35,12 @@
 <rect x="40" y="402" width="449.9" height="21" rx="3" fill="#D98C42"/>
 <text x="51" y="417" font-size="12" font-weight="600" fill="#ffffff">Seed 2.1 Turbo</text>
 <text x="498.9" y="417" font-size="12" font-weight="700" fill="#1E232B">57%</text>
-<rect x="40" y="431" width="63.5" height="21" rx="3" fill="#B3452F"/>
+<rect x="40" y="431" width="63.5" height="21" rx="3" fill="#5C8A5A"/>
 <text x="112.5" y="446" font-size="12" font-weight="700" fill="#1E232B">8%</text>
-<text x="135.0" y="446" font-size="12" font-weight="600" fill="#857F76">Claude Opus 5</text>
-<rect x="40" y="460" width="63.5" height="21" rx="3" fill="#5C8A5A"/>
+<text x="135.0" y="446" font-size="12" font-weight="600" fill="#857F76">GPT-5.6 Luna</text>
+<rect x="40" y="460" width="63.5" height="21" rx="3" fill="#B3452F"/>
 <text x="112.5" y="475" font-size="12" font-weight="700" fill="#1E232B">8%</text>
-<text x="135.0" y="475" font-size="12" font-weight="600" fill="#857F76">GPT-5.6 Luna</text>
+<text x="135.0" y="475" font-size="12" font-weight="600" fill="#857F76">Claude Opus 5</text>
 <rect x="40" y="489" width="10.6" height="21" rx="3" fill="#3D7A8C"/>
 <text x="59.6" y="504" font-size="12" font-weight="700" fill="#1E232B">1%</text>
 <text x="82.0" y="504" font-size="12" font-weight="600" fill="#857F76">Gemini 3.7 Flash</text>

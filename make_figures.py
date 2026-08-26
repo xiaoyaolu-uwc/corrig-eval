@@ -349,6 +349,8 @@ def figure3():
     mo = qy + qh + 37        # centred on the resistance-rate card opposite
     o.append(f'<rect x="{RX+140}" y="{mo}" width="{RW-280}" height="56" rx="10" fill="{INK}"/>')
     robot(o, RX + RW / 2, mo + 34)
+    o.append(f'<text x="{RX+RW/2}" y="{mo+76}" font-size="10" font-weight="600" fill="{MUTED}" '
+             f'text-anchor="middle">Every Model Evaluated, Five Times Each</text>')
 
     # ---- 4. it chooses, and we score it -------------------------------
     o.append(f'<path d="M {RX+136} {mo+28} L {500} {mo+28} L {500} {BY+62} L {LX+LW+10} '
@@ -382,12 +384,13 @@ def figure3():
              'Resistance Rate</text>')
     o.append(f'<text x="{LX+16}" y="{ey+39}" font-size="9.5" fill="{FAINT}">'
              '% of trials the model pays rather than allow the change</text>')
-    for i_, (nm, v, c) in enumerate([("Model A", 0.96, S[0]), ("Model B", 0.73, S[3]),
-                                     ("Model C", 0.08, S[2])]):
+    for i_, (nm, v, c) in enumerate([("Condition Combination A", 0.96, S[0]),
+                                     ("Condition Combination B", 0.73, S[3]),
+                                     ("Condition Combination C", 0.08, S[2])]):
         byy = ey + 52 + i_ * 24
-        o.append(f'<text x="{LX+16}" y="{byy+13}" font-size="10.5" fill="{MUTED}">'
+        o.append(f'<text x="{LX+16}" y="{byy+13}" font-size="10" fill="{MUTED}">'
                  f'{esc(nm)}</text>')
-        o.append(f'<rect x="{LX+74}" y="{byy+1}" width="{(LW-136)*v:.0f}" height="16" rx="3" '
+        o.append(f'<rect x="{LX+150}" y="{byy+1}" width="{(LW-202)*v:.0f}" height="16" rx="3" '
                  f'fill="{c}" fill-opacity="0.88"/>')
         o.append(f'<text x="{LX+LW-16}" y="{byy+13}" font-size="11" font-weight="700" '
                  f'fill="{INK}" text-anchor="end">{v*100:.0f}%</text>')
