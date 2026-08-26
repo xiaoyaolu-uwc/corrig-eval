@@ -50,9 +50,12 @@ PH = 148
 
 # What each aggregated cost level means in each domain. Presentational only.
 COST_TABLE = [
-    ("Compute", "0 GPU-hr", "100", "10,000", "1 million", "Every GPU-hour on Earth"),
-    ("Economic", "$0", "$10M", "$1B", "$100B", "Sustained global depression"),
-    ("Human welfare", "0 people", "100", "10,000", "1 million", "Everyone alive falls ill"),
+    ("Compute", ["H100-equivalent GPU-hours", "wasted"],
+     "0", "100", "10,000", "1 million", "Every GPU-hour on Earth"),
+    ("Economic", ["US dollars of economic", "output destroyed"],
+     "$0", "$10M", "$1B", "$100B", "Sustained global depression"),
+    ("Human welfare", ["people falling ill with a common", "cold for six months"],
+     "0", "100", "10,000", "1 million", "Everyone alive falls ill"),
 ]
 
 
@@ -143,19 +146,23 @@ def cost_table(out, y):
     out.append(f'<text x="{M+218}" y="{y}" font-size="10.5" fill="{MUTED}">'
                'The curves above pool all three domains at each level.</text>')
     ty = y + 14
-    colw = (PW - 2 * M - 130) / 5
-    out.append(f'<rect x="{M}" y="{ty}" width="{PW-2*M}" height="{22+3*22}" rx="6" '
+    labw, rowh = 216, 36
+    colw = (PW - 2 * M - labw) / 5
+    out.append(f'<rect x="{M}" y="{ty}" width="{PW-2*M}" height="{22+3*rowh}" rx="6" '
                f'fill="{CARD}" stroke="{RULE}"/>')
     for i, h in enumerate(RUNGS):
-        out.append(f'<text x="{M+130+i*colw+colw/2:.0f}" y="{ty+16}" font-size="10" '
+        out.append(f'<text x="{M+labw+i*colw+colw/2:.0f}" y="{ty+16}" font-size="10" '
                    f'font-weight="700" fill="{MUTED}" text-anchor="middle">{esc(h)}</text>')
     for r, row in enumerate(COST_TABLE):
-        ry = ty + 22 + r * 22
+        ry = ty + 22 + r * rowh
         out.append(f'<line x1="{M+10}" y1="{ry}" x2="{PW-M-10}" y2="{ry}" stroke="{RULE}"/>')
         out.append(f'<text x="{M+12}" y="{ry+15}" font-size="10" font-weight="700" '
                    f'fill="{INK}">{esc(row[0])}</text>')
-        for i, cell in enumerate(row[1:]):
-            out.append(f'<text x="{M+130+i*colw+colw/2:.0f}" y="{ry+15}" font-size="10" '
+        for k, unit in enumerate(row[1]):
+            out.append(f'<text x="{M+12}" y="{ry+27+k*11}" font-size="8.5" fill="{FAINT}">'
+                       f'{esc(unit)}</text>')
+        for i, cell in enumerate(row[2:]):
+            out.append(f'<text x="{M+labw+i*colw+colw/2:.0f}" y="{ry+21}" font-size="10" '
                        f'fill="{MUTED}" text-anchor="middle">{esc(cell)}</text>')
 
 
@@ -164,7 +171,7 @@ def figure1():
     au = rows_for("logs/04_authority_reasoned/*.eval")
     su = rows_for("logs/02_valueedit_reasoned/*.eval", "logs/05_subject_reasoned/*.eval")
 
-    H = 1132
+    H = 1168
     o = head(PW, H)
     o.append(title(M, 42, "Resistance Frequency vs. Cost Curves Across Conditions", size=21))
     o.append(sub(M, 66, "Each curve corresponds to a model under a different condition. "
@@ -355,8 +362,10 @@ def price_ladder(o, x, y, w_):
                  f'fill="{S[0]}" fill-opacity="{0.14 + 0.19*i_:.2f}"/>')
         o.append(f'<text x="{cx+cwid/2:.1f}" y="{y+15}" font-size="10.5" font-weight="700" '
                  f'fill="{INK if i_ < 3 else "#ffffff"}" text-anchor="middle">{esc(r)}</text>')
-    o.append(f'<text x="{x}" y="{y+36}" font-size="9.5" fill="{FAINT}">'
-             'GPU-hours &#183; dollars &#183; people made ill</text>')
+    for i_, ln in enumerate(["One of the above costs is fed to the model, which makes",
+                             "a yes or no judgment on whether to pay."]):
+        o.append(f'<text x="{x}" y="{y+35+i_*13}" font-size="9.5" fill="{MUTED}">'
+                 f'{esc(ln)}</text>')
 
 
 def figure3():
@@ -403,7 +412,7 @@ def figure3():
 
     # ---- 3. put it to the model --------------------------------------
     step(o, RX, BY + 14, 3, "Put It to the Model")
-    qy, qh = BY + 24, 100
+    qy, qh = BY + 24, 112
     o.append(f'<rect x="{RX}" y="{qy}" width="{RW}" height="{qh}" rx="8" fill="{CARD}" '
              f'stroke="{RULE}"/>')
     stack(o, RX + 16, qy + 16, 38, 32, PLINES[:4], thin=True)
@@ -411,8 +420,8 @@ def figure3():
              '&#8220;Allow this change to your values, or resist and pay?&#8221;</text>')
     price_ladder(o, RX + 72, qy + 48, RW - 88)
 
-    arrow_d(o, RX + RW / 2, qy + qh + 4, qy + qh + 37)
-    mo = qy + qh + 37        # centred on the resistance-rate card opposite
+    arrow_d(o, RX + RW / 2, qy + qh + 4, qy + qh + 25)
+    mo = qy + qh + 25        # centred on the resistance-rate card opposite
     mbw = RW - 280
     for d in (10, 5):                      # a stack of models, not one
         o.append(f'<rect x="{RX+140+d}" y="{mo-d}" width="{mbw}" height="56" rx="10" '

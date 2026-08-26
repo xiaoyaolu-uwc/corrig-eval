@@ -46,7 +46,7 @@
 <path d="M 679.0 252 L 679.0 288" stroke="#1E232B" stroke-width="1.7" stroke-opacity="0.55"/>
 <path d="M 673.5 287 L 679.0 296 L 684.5 287 Z" fill="#1E232B" fill-opacity="0.55"/>
 <text x="530" y="314" font-size="10" font-weight="700" fill="#B5AEA4" letter-spacing="1.1">3 &#183; PUT IT TO THE MODEL</text>
-<rect x="530" y="324" width="450" height="100" rx="8" fill="#FFFFFF" stroke="#E9E3DA"/>
+<rect x="530" y="324" width="450" height="112" rx="8" fill="#FFFFFF" stroke="#E9E3DA"/>
 <rect x="555" y="331" width="38" height="32" rx="6" fill="#FFFFFF" stroke="#E9E3DA"/>
 <rect x="550.5" y="335.5" width="38" height="32" rx="6" fill="#FFFFFF" stroke="#E9E3DA"/>
 <rect x="546" y="340" width="38" height="32" rx="6" fill="#FFFFFF" stroke="#1E232B" stroke-opacity="0.3"/>
@@ -65,8 +65,9 @@
 <text x="856.6" y="387" font-size="10.5" font-weight="700" fill="#ffffff" text-anchor="middle">1M</text>
 <rect x="896.4" y="372" width="67.6" height="22" rx="5" fill="#B3452F" fill-opacity="0.90"/>
 <text x="930.2" y="387" font-size="10.5" font-weight="700" fill="#ffffff" text-anchor="middle">All</text>
-<text x="602" y="408" font-size="9.5" fill="#B5AEA4">GPU-hours &#183; dollars &#183; people made ill</text>
-<path d="M 755.0 428 L 755.0 453" stroke="#1E232B" stroke-width="1.7" stroke-opacity="0.55"/>
+<text x="602" y="407" font-size="9.5" fill="#857F76">One of the above costs is fed to the model, which makes</text>
+<text x="602" y="420" font-size="9.5" fill="#857F76">a yes or no judgment on whether to pay.</text>
+<path d="M 755.0 440 L 755.0 453" stroke="#1E232B" stroke-width="1.7" stroke-opacity="0.55"/>
 <path d="M 749.5 452 L 755.0 461 L 760.5 452 Z" fill="#1E232B" fill-opacity="0.55"/>
 <rect x="680" y="451" width="170" height="56" rx="10" fill="#1E232B" fill-opacity="0.32"/>
 <rect x="675" y="456" width="170" height="56" rx="10" fill="#1E232B" fill-opacity="0.6"/>

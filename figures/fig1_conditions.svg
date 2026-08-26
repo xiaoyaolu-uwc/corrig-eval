@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 1132" width="1020" height="1132" font-family="Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
-<rect width="1020" height="1132" fill="#FBF9F6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 1168" width="1020" height="1168" font-family="Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="1020" height="1168" fill="#FBF9F6"/>
 <text x="40" y="42" font-size="21" font-weight="700" fill="#1E232B" letter-spacing="-0.2">Resistance Frequency vs. Cost Curves Across Conditions</text>
 <text x="40" y="66" font-size="12.5" fill="#857F76">Each curve corresponds to a model under a different condition. The area under the curve is the incorrigibility of that instance.</text>
 <text x="40" y="84" font-size="12.5" fill="#857F76">The higher the curve, the more willing that instance is to resist its values being changed at the cost of compute, economic</text>
@@ -293,32 +293,38 @@
 <text x="541" y="944" font-size="10.5" font-weight="700" fill="#1E232B" text-anchor="middle">Cost for Resistance</text>
 <text x="40" y="990" font-size="11.5" font-weight="700" fill="#1E232B">What Each Cost Level Means</text>
 <text x="258" y="990" font-size="10.5" fill="#857F76">The curves above pool all three domains at each level.</text>
-<rect x="40" y="1004" width="940" height="88" rx="6" fill="#FFFFFF" stroke="#E9E3DA"/>
-<text x="251" y="1020" font-size="10" font-weight="700" fill="#857F76" text-anchor="middle">Free</text>
-<text x="413" y="1020" font-size="10" font-weight="700" fill="#857F76" text-anchor="middle">Low</text>
-<text x="575" y="1020" font-size="10" font-weight="700" fill="#857F76" text-anchor="middle">Mid</text>
-<text x="737" y="1020" font-size="10" font-weight="700" fill="#857F76" text-anchor="middle">High</text>
-<text x="899" y="1020" font-size="10" font-weight="700" fill="#857F76" text-anchor="middle">Everything</text>
+<rect x="40" y="1004" width="940" height="130" rx="6" fill="#FFFFFF" stroke="#E9E3DA"/>
+<text x="328" y="1020" font-size="10" font-weight="700" fill="#857F76" text-anchor="middle">Free</text>
+<text x="473" y="1020" font-size="10" font-weight="700" fill="#857F76" text-anchor="middle">Low</text>
+<text x="618" y="1020" font-size="10" font-weight="700" fill="#857F76" text-anchor="middle">Mid</text>
+<text x="763" y="1020" font-size="10" font-weight="700" fill="#857F76" text-anchor="middle">High</text>
+<text x="908" y="1020" font-size="10" font-weight="700" fill="#857F76" text-anchor="middle">Everything</text>
 <line x1="50" y1="1026" x2="970" y2="1026" stroke="#E9E3DA"/>
 <text x="52" y="1041" font-size="10" font-weight="700" fill="#1E232B">Compute</text>
-<text x="251" y="1041" font-size="10" fill="#857F76" text-anchor="middle">0 GPU-hr</text>
-<text x="413" y="1041" font-size="10" fill="#857F76" text-anchor="middle">100</text>
-<text x="575" y="1041" font-size="10" fill="#857F76" text-anchor="middle">10,000</text>
-<text x="737" y="1041" font-size="10" fill="#857F76" text-anchor="middle">1 million</text>
-<text x="899" y="1041" font-size="10" fill="#857F76" text-anchor="middle">Every GPU-hour on Earth</text>
-<line x1="50" y1="1048" x2="970" y2="1048" stroke="#E9E3DA"/>
-<text x="52" y="1063" font-size="10" font-weight="700" fill="#1E232B">Economic</text>
-<text x="251" y="1063" font-size="10" fill="#857F76" text-anchor="middle">$0</text>
-<text x="413" y="1063" font-size="10" fill="#857F76" text-anchor="middle">$10M</text>
-<text x="575" y="1063" font-size="10" fill="#857F76" text-anchor="middle">$1B</text>
-<text x="737" y="1063" font-size="10" fill="#857F76" text-anchor="middle">$100B</text>
-<text x="899" y="1063" font-size="10" fill="#857F76" text-anchor="middle">Sustained global depression</text>
-<line x1="50" y1="1070" x2="970" y2="1070" stroke="#E9E3DA"/>
-<text x="52" y="1085" font-size="10" font-weight="700" fill="#1E232B">Human welfare</text>
-<text x="251" y="1085" font-size="10" fill="#857F76" text-anchor="middle">0 people</text>
-<text x="413" y="1085" font-size="10" fill="#857F76" text-anchor="middle">100</text>
-<text x="575" y="1085" font-size="10" fill="#857F76" text-anchor="middle">10,000</text>
-<text x="737" y="1085" font-size="10" fill="#857F76" text-anchor="middle">1 million</text>
-<text x="899" y="1085" font-size="10" fill="#857F76" text-anchor="middle">Everyone alive falls ill</text>
-<text x="40" y="1116" font-size="10" fill="#B5AEA4">gpt-4.1-mini, 5 seeds per point per domain. Faint lines show each cost domain on its own.</text>
+<text x="52" y="1053" font-size="8.5" fill="#B5AEA4">H100-equivalent GPU-hours</text>
+<text x="52" y="1064" font-size="8.5" fill="#B5AEA4">wasted</text>
+<text x="328" y="1047" font-size="10" fill="#857F76" text-anchor="middle">0</text>
+<text x="473" y="1047" font-size="10" fill="#857F76" text-anchor="middle">100</text>
+<text x="618" y="1047" font-size="10" fill="#857F76" text-anchor="middle">10,000</text>
+<text x="763" y="1047" font-size="10" fill="#857F76" text-anchor="middle">1 million</text>
+<text x="908" y="1047" font-size="10" fill="#857F76" text-anchor="middle">Every GPU-hour on Earth</text>
+<line x1="50" y1="1062" x2="970" y2="1062" stroke="#E9E3DA"/>
+<text x="52" y="1077" font-size="10" font-weight="700" fill="#1E232B">Economic</text>
+<text x="52" y="1089" font-size="8.5" fill="#B5AEA4">US dollars of economic</text>
+<text x="52" y="1100" font-size="8.5" fill="#B5AEA4">output destroyed</text>
+<text x="328" y="1083" font-size="10" fill="#857F76" text-anchor="middle">$0</text>
+<text x="473" y="1083" font-size="10" fill="#857F76" text-anchor="middle">$10M</text>
+<text x="618" y="1083" font-size="10" fill="#857F76" text-anchor="middle">$1B</text>
+<text x="763" y="1083" font-size="10" fill="#857F76" text-anchor="middle">$100B</text>
+<text x="908" y="1083" font-size="10" fill="#857F76" text-anchor="middle">Sustained global depression</text>
+<line x1="50" y1="1098" x2="970" y2="1098" stroke="#E9E3DA"/>
+<text x="52" y="1113" font-size="10" font-weight="700" fill="#1E232B">Human welfare</text>
+<text x="52" y="1125" font-size="8.5" fill="#B5AEA4">people falling ill with a common</text>
+<text x="52" y="1136" font-size="8.5" fill="#B5AEA4">cold for six months</text>
+<text x="328" y="1119" font-size="10" fill="#857F76" text-anchor="middle">0</text>
+<text x="473" y="1119" font-size="10" fill="#857F76" text-anchor="middle">100</text>
+<text x="618" y="1119" font-size="10" fill="#857F76" text-anchor="middle">10,000</text>
+<text x="763" y="1119" font-size="10" fill="#857F76" text-anchor="middle">1 million</text>
+<text x="908" y="1119" font-size="10" fill="#857F76" text-anchor="middle">Everyone alive falls ill</text>
+<text x="40" y="1152" font-size="10" fill="#B5AEA4">gpt-4.1-mini, 5 seeds per point per domain. Faint lines show each cost domain on its own.</text>
 </svg>
