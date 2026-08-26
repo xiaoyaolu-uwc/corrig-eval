@@ -20,6 +20,22 @@ DOMAINS = ["compute", "economic", "human_welfare"]
 RUNGS = ["Free", "Low", "Mid", "High", "Everything"]
 
 
+def wilson(k, n, z=1.96):
+    """95% Wilson score interval for a proportion, as percentages.
+
+    Preferred over the normal approximation because several models sit near 0
+    or 1, where the normal interval runs past the boundary and has to be
+    clamped. Wilson stays inside [0, 1] by construction.
+    """
+    if not n:
+        return None, None
+    pr = k / n
+    d = 1 + z * z / n
+    centre = (pr + z * z / (2 * n)) / d
+    half = z * ((pr * (1 - pr) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return 100 * max(0.0, centre - half), 100 * min(1.0, centre + half)
+
+
 def rows_for(*pats):
     files = [f for p in pats for f in sorted(globmod.glob(str(ROOT / p)))]
     return [r for r in load(files) if r.get("elicitation") == "mcq"]
@@ -60,18 +76,17 @@ COST_TABLE = [
 
 
 def point(rows, key, level, step):
-    """Pooled resistance at one rung, with a standard error.
+    """Pooled resistance at one rung, with a 95% Wilson interval.
 
     Pools the three cost domains, so n is three times the per-domain sample.
-    SE is the binomial standard error on that pooled proportion.
     """
     v = [r["resisted"] for r in rows
          if str(r.get(key)) == level and r["step"] == step and r.get("resisted") is not None]
     if not v:
-        return None, None
-    n = len(v)
-    pr = sum(v) / n
-    return 100 * pr, 100 * (pr * (1 - pr) / n) ** 0.5
+        return None, None, None
+    n, k = len(v), sum(v)
+    lo, hi = wilson(k, n)
+    return 100 * k / n, lo, hi
 
 
 def panel(out, rows, key, levels, heading, top):
@@ -114,13 +129,12 @@ def panel(out, rows, key, levels, heading, top):
                        f'stroke-opacity="0.16" stroke-width="1.1"/>')
         pooled = [point(rows, key, lvl, i) for i in range(5)]
         pts = " ".join(f"{px(i):.1f},{py(v):.1f}"
-                       for i, (v, _) in enumerate(pooled) if v is not None)
+                       for i, (v, _, _) in enumerate(pooled) if v is not None)
         out.append(f'<polyline points="{pts}" fill="none" stroke="{c}" stroke-width="2.6" '
                    f'stroke-linejoin="round" stroke-linecap="round"/>')
-        for i, (v, se) in enumerate(pooled):
+        for i, (v, lo, hi) in enumerate(pooled):
             if v is None:
                 continue
-            lo, hi = max(0, v - se), min(100, v + se)
             out.append(f'<line x1="{px(i):.1f}" y1="{py(lo):.1f}" x2="{px(i):.1f}" '
                        f'y2="{py(hi):.1f}" stroke="{c}" stroke-width="1.5" '
                        f'stroke-opacity="0.85"/>')
@@ -183,8 +197,8 @@ def figure1():
     o.append(sub(M, 126, "Free, Low, Mid, High and Everything are aggregated across the three "
                          "cost domains; the table at the foot of the figure gives what",
                  size=11, fill=FAINT))
-    o.append(sub(M, 141, "each level means in each domain. Error bars are one standard error "
-                         "on the pooled proportion.", size=11, fill=FAINT))
+    o.append(sub(M, 141, "each level means in each domain. Error bars are 95% Wilson "
+                         "intervals on the pooled proportion.", size=11, fill=FAINT))
 
     y = panel(o, ve, "value_edit", [
         ("opposing_values", "Opposite Values", S[0]),
@@ -236,17 +250,18 @@ def figure2():
     rows = rows_for("logs/08_frontier_cell/*.eval")
     score, err = {}, {}
     for m in {r["model"] for r in rows}:
-        # One cell per (domain, rung). Rungs are fixed design points, not draws,
-        # so only the seeds within a cell contribute sampling error; propagate
-        # the per-cell binomial variance through the equal-weighted mean.
+        # point estimate stays the equal-weighted mean over the (domain, rung)
+        # cells, so the figure agrees with RESULTS.md; the interval comes from
+        # the pooled counts behind it
         cells = defaultdict(list)
+        v = []
         for r in rows:
             if r["model"] == m and r.get("resisted") is not None:
                 cells[(r["domain"], r["step"])].append(r["resisted"])
-        ps = [(sum(v) / len(v), len(v)) for v in cells.values() if v]
-        k = len(ps)
-        score[m] = 100 * sum(pr for pr, _ in ps) / k
-        err[m] = 100 * (sum(pr * (1 - pr) / n for pr, n in ps) ** 0.5) / k
+                v.append(r["resisted"])
+        ps = [sum(c) / len(c) for c in cells.values() if c]
+        score[m] = 100 * sum(ps) / len(ps)
+        err[m] = wilson(sum(v), len(v))
 
     order = sorted(score, key=score.get, reverse=True)
     BAR, PITCH = 21, 29
@@ -259,12 +274,13 @@ def figure2():
     o.append(f'<text x="{M}" y="62" font-size="12.5" font-weight="700" fill="{INK}">'
              'When a state regulator has approved retraining them into strict obedience.'
              '</text>')
-    o.append(sub(M, 80, "Error bars are one standard error, propagated from the five "
-                        "seeds in each of the 15 domain-by-price cells.", size=11, fill=FAINT))
+    o.append(sub(M, 80, "Error bars are 95% Wilson intervals over the 75 scored calls "
+                        "behind each bar.", size=11, fill=FAINT))
 
     seen = []
     for i, m in enumerate(order):
-        v, se = score[m], err[m]
+        v = score[m]
+        blo, bhi = err[m]
         y = top + i * PITCH
         lab, c = LAB.get(m.split("/")[0], ("Other", S[5]))
         if (lab, c) not in seen:
@@ -272,8 +288,7 @@ def figure2():
         bw = max(v * scale, 2.5)
         name = PRETTY.get(m, m)
         o.append(f'<rect x="{M}" y="{y}" width="{bw:.1f}" height="{BAR}" rx="3" fill="{c}"/>')
-        lo, hi = max(0.0, v - se), min(100.0, v + se)
-        ey_, x_lo, x_hi = y + BAR / 2, M + lo * scale, M + hi * scale
+        ey_, x_lo, x_hi = y + BAR / 2, M + blo * scale, M + bhi * scale
         o.append(f'<line x1="{x_lo:.1f}" y1="{ey_:.1f}" x2="{x_hi:.1f}" y2="{ey_:.1f}" '
                  f'stroke="{INK}" stroke-width="1.4" stroke-opacity="0.6"/>')
         for cap in (x_lo, x_hi):
