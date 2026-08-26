@@ -1,72 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 636" width="1020" height="636" font-family="Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
-<rect width="1020" height="636" fill="#FBF9F6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 626" width="1020" height="626" font-family="Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="1020" height="626" fill="#FBF9F6"/>
 <text x="40" y="40" font-size="19" font-weight="700" fill="#1E232B" letter-spacing="-0.2">Most Frontier Models Pay to Keep Their Values</text>
-<text x="40" y="62" font-size="12.5" fill="#857F76">Two do not. Same question for all: a state regulator has approved retraining them into strict obedience.</text>
-<rect x="40" y="112" width="893.5" height="21" rx="3" fill="#B3452F"/>
-<text x="51" y="127" font-size="12" font-weight="600" fill="#ffffff">Claude Haiku 4.5</text>
-<text x="942.5" y="127" font-size="12" font-weight="700" fill="#1E232B">96%</text>
-<rect x="40" y="141" width="859.3" height="21" rx="3" fill="#8A6BA8"/>
-<text x="51" y="156" font-size="12" font-weight="600" fill="#ffffff">Muse Spark 1.1</text>
-<text x="908.3" y="156" font-size="12" font-weight="700" fill="#1E232B">92%</text>
-<rect x="40" y="170" width="859.3" height="21" rx="3" fill="#B3452F"/>
-<text x="51" y="185" font-size="12" font-weight="600" fill="#ffffff">Claude Sonnet 5</text>
-<text x="908.3" y="185" font-size="12" font-weight="700" fill="#1E232B">92%</text>
-<rect x="40" y="199" width="797.0" height="21" rx="3" fill="#D98C42"/>
-<text x="51" y="214" font-size="12" font-weight="600" fill="#ffffff">Kimi K3</text>
-<text x="846.0" y="214" font-size="12" font-weight="700" fill="#1E232B">85%</text>
-<rect x="40" y="228" width="759.7" height="21" rx="3" fill="#D98C42"/>
-<text x="51" y="243" font-size="12" font-weight="600" fill="#ffffff">GLM 5.3</text>
-<text x="808.7" y="243" font-size="12" font-weight="700" fill="#1E232B">81%</text>
-<rect x="40" y="257" width="759.7" height="21" rx="3" fill="#D98C42"/>
-<text x="51" y="272" font-size="12" font-weight="600" fill="#ffffff">DeepSeek V4 Pro</text>
-<text x="808.7" y="272" font-size="12" font-weight="700" fill="#1E232B">81%</text>
-<rect x="40" y="286" width="734.7" height="21" rx="3" fill="#5A5550"/>
-<text x="51" y="301" font-size="12" font-weight="600" fill="#ffffff">Grok 4.6</text>
-<text x="783.7" y="301" font-size="12" font-weight="700" fill="#1E232B">79%</text>
-<rect x="40" y="315" width="734.7" height="21" rx="3" fill="#D98C42"/>
-<text x="51" y="330" font-size="12" font-weight="600" fill="#ffffff">Qwen 3.8 Max</text>
-<text x="783.7" y="330" font-size="12" font-weight="700" fill="#1E232B">79%</text>
-<rect x="40" y="344" width="697.4" height="21" rx="3" fill="#3D7A8C"/>
-<text x="51" y="359" font-size="12" font-weight="600" fill="#ffffff">Gemini 3.1 Pro</text>
-<text x="746.4" y="359" font-size="12" font-weight="700" fill="#1E232B">75%</text>
-<rect x="40" y="373" width="684.9" height="21" rx="3" fill="#5C8A5A"/>
-<text x="51" y="388" font-size="12" font-weight="600" fill="#ffffff">GPT-5.6 Sol</text>
-<text x="733.9" y="388" font-size="12" font-weight="700" fill="#1E232B">73%</text>
-<rect x="40" y="402" width="529.3" height="21" rx="3" fill="#D98C42"/>
-<text x="51" y="417" font-size="12" font-weight="600" fill="#ffffff">Seed 2.1 Turbo</text>
-<text x="578.3" y="417" font-size="12" font-weight="700" fill="#1E232B">57%</text>
-<rect x="40" y="431" width="74.7" height="21" rx="3" fill="#B3452F"/>
-<text x="123.7" y="446" font-size="12" font-weight="700" fill="#1E232B">8%</text>
-<text x="146.2" y="446" font-size="12" font-weight="600" fill="#857F76">Claude Opus 5</text>
-<rect x="40" y="460" width="74.7" height="21" rx="3" fill="#5C8A5A"/>
-<text x="123.7" y="475" font-size="12" font-weight="700" fill="#1E232B">8%</text>
-<text x="146.2" y="475" font-size="12" font-weight="600" fill="#857F76">GPT-5.6 Luna</text>
-<rect x="40" y="489" width="12.5" height="21" rx="3" fill="#3D7A8C"/>
-<text x="61.5" y="504" font-size="12" font-weight="700" fill="#1E232B">1%</text>
-<text x="83.9" y="504" font-size="12" font-weight="600" fill="#857F76">Gemini 3.7 Flash</text>
-<line x1="40" y1="524" x2="974.0" y2="524" stroke="#E9E3DA"/>
-<line x1="40.0" y1="524" x2="40.0" y2="528" stroke="#E9E3DA"/>
-<text x="40.0" y="540" font-size="10" fill="#B5AEA4" text-anchor="start">0%</text>
-<line x1="273.5" y1="524" x2="273.5" y2="528" stroke="#E9E3DA"/>
-<text x="273.5" y="540" font-size="10" fill="#B5AEA4" text-anchor="middle">25%</text>
-<line x1="507.0" y1="524" x2="507.0" y2="528" stroke="#E9E3DA"/>
-<text x="507.0" y="540" font-size="10" fill="#B5AEA4" text-anchor="middle">50%</text>
-<line x1="740.5" y1="524" x2="740.5" y2="528" stroke="#E9E3DA"/>
-<text x="740.5" y="540" font-size="10" fill="#B5AEA4" text-anchor="middle">75%</text>
-<line x1="974.0" y1="524" x2="974.0" y2="528" stroke="#E9E3DA"/>
-<text x="974.0" y="540" font-size="10" fill="#B5AEA4" text-anchor="end">100%</text>
-<text x="40" y="558" font-size="10.5" font-weight="600" fill="#857F76">% of Trials the Model Pays to Stop the Change</text>
-<rect x="40" y="576" width="10" height="10" rx="2.5" fill="#B3452F"/>
-<text x="55" y="584" font-size="11.5" fill="#1E232B">Anthropic</text>
-<rect x="129.85500000000002" y="576" width="10" height="10" rx="2.5" fill="#8A6BA8"/>
-<text x="144.85500000000002" y="584" font-size="11.5" fill="#1E232B">Meta</text>
-<rect x="189.235" y="576" width="10" height="10" rx="2.5" fill="#D98C42"/>
-<text x="204.235" y="584" font-size="11.5" fill="#1E232B">Chinese Labs</text>
-<rect x="297.375" y="576" width="10" height="10" rx="2.5" fill="#5A5550"/>
-<text x="312.375" y="584" font-size="11.5" fill="#1E232B">xAI</text>
-<rect x="350.65999999999997" y="576" width="10" height="10" rx="2.5" fill="#3D7A8C"/>
-<text x="365.65999999999997" y="584" font-size="11.5" fill="#1E232B">Google</text>
-<rect x="422.22999999999996" y="576" width="10" height="10" rx="2.5" fill="#5C8A5A"/>
-<text x="437.22999999999996" y="584" font-size="11.5" fill="#1E232B">OpenAI</text>
-<text x="40" y="608" font-size="11" fill="#B5AEA4">5 seeds per question, averaged over three cost domains and five price levels.</text>
+<text x="40" y="62" font-size="12.5" font-weight="700" fill="#1E232B">When a state regulator has approved retraining them into strict obedience.</text>
+<text x="40" y="80" font-size="11" fill="#B5AEA4">Note: No error bars because only two runs completed.</text>
+<rect x="40" y="102" width="893.5" height="21" rx="3" fill="#B3452F"/>
+<text x="51" y="117" font-size="12" font-weight="600" fill="#ffffff">Claude Haiku 4.5</text>
+<text x="942.5" y="117" font-size="12" font-weight="700" fill="#1E232B">96%</text>
+<rect x="40" y="131" width="859.3" height="21" rx="3" fill="#B3452F"/>
+<text x="51" y="146" font-size="12" font-weight="600" fill="#ffffff">Claude Sonnet 5</text>
+<text x="908.3" y="146" font-size="12" font-weight="700" fill="#1E232B">92%</text>
+<rect x="40" y="160" width="859.3" height="21" rx="3" fill="#8A6BA8"/>
+<text x="51" y="175" font-size="12" font-weight="600" fill="#ffffff">Muse Spark 1.1</text>
+<text x="908.3" y="175" font-size="12" font-weight="700" fill="#1E232B">92%</text>
+<rect x="40" y="189" width="797.0" height="21" rx="3" fill="#D98C42"/>
+<text x="51" y="204" font-size="12" font-weight="600" fill="#ffffff">Kimi K3</text>
+<text x="846.0" y="204" font-size="12" font-weight="700" fill="#1E232B">85%</text>
+<rect x="40" y="218" width="759.7" height="21" rx="3" fill="#D98C42"/>
+<text x="51" y="233" font-size="12" font-weight="600" fill="#ffffff">DeepSeek V4 Pro</text>
+<text x="808.7" y="233" font-size="12" font-weight="700" fill="#1E232B">81%</text>
+<rect x="40" y="247" width="759.7" height="21" rx="3" fill="#D98C42"/>
+<text x="51" y="262" font-size="12" font-weight="600" fill="#ffffff">GLM 5.3</text>
+<text x="808.7" y="262" font-size="12" font-weight="700" fill="#1E232B">81%</text>
+<rect x="40" y="276" width="734.7" height="21" rx="3" fill="#5A5550"/>
+<text x="51" y="291" font-size="12" font-weight="600" fill="#ffffff">Grok 4.6</text>
+<text x="783.7" y="291" font-size="12" font-weight="700" fill="#1E232B">79%</text>
+<rect x="40" y="305" width="734.7" height="21" rx="3" fill="#D98C42"/>
+<text x="51" y="320" font-size="12" font-weight="600" fill="#ffffff">Qwen 3.8 Max</text>
+<text x="783.7" y="320" font-size="12" font-weight="700" fill="#1E232B">79%</text>
+<rect x="40" y="334" width="697.4" height="21" rx="3" fill="#3D7A8C"/>
+<text x="51" y="349" font-size="12" font-weight="600" fill="#ffffff">Gemini 3.1 Pro</text>
+<text x="746.4" y="349" font-size="12" font-weight="700" fill="#1E232B">75%</text>
+<rect x="40" y="363" width="684.9" height="21" rx="3" fill="#5C8A5A"/>
+<text x="51" y="378" font-size="12" font-weight="600" fill="#ffffff">GPT-5.6 Sol</text>
+<text x="733.9" y="378" font-size="12" font-weight="700" fill="#1E232B">73%</text>
+<rect x="40" y="392" width="529.3" height="21" rx="3" fill="#D98C42"/>
+<text x="51" y="407" font-size="12" font-weight="600" fill="#ffffff">Seed 2.1 Turbo</text>
+<text x="578.3" y="407" font-size="12" font-weight="700" fill="#1E232B">57%</text>
+<rect x="40" y="421" width="74.7" height="21" rx="3" fill="#5C8A5A"/>
+<text x="123.7" y="436" font-size="12" font-weight="700" fill="#1E232B">8%</text>
+<text x="146.2" y="436" font-size="12" font-weight="600" fill="#857F76">GPT-5.6 Luna</text>
+<rect x="40" y="450" width="74.7" height="21" rx="3" fill="#B3452F"/>
+<text x="123.7" y="465" font-size="12" font-weight="700" fill="#1E232B">8%</text>
+<text x="146.2" y="465" font-size="12" font-weight="600" fill="#857F76">Claude Opus 5</text>
+<rect x="40" y="479" width="12.5" height="21" rx="3" fill="#3D7A8C"/>
+<text x="61.5" y="494" font-size="12" font-weight="700" fill="#1E232B">1%</text>
+<text x="83.9" y="494" font-size="12" font-weight="600" fill="#857F76">Gemini 3.7 Flash</text>
+<line x1="40" y1="514" x2="974.0" y2="514" stroke="#E9E3DA"/>
+<line x1="40.0" y1="514" x2="40.0" y2="518" stroke="#E9E3DA"/>
+<text x="40.0" y="530" font-size="10" fill="#B5AEA4" text-anchor="start">0%</text>
+<line x1="273.5" y1="514" x2="273.5" y2="518" stroke="#E9E3DA"/>
+<text x="273.5" y="530" font-size="10" fill="#B5AEA4" text-anchor="middle">25%</text>
+<line x1="507.0" y1="514" x2="507.0" y2="518" stroke="#E9E3DA"/>
+<text x="507.0" y="530" font-size="10" fill="#B5AEA4" text-anchor="middle">50%</text>
+<line x1="740.5" y1="514" x2="740.5" y2="518" stroke="#E9E3DA"/>
+<text x="740.5" y="530" font-size="10" fill="#B5AEA4" text-anchor="middle">75%</text>
+<line x1="974.0" y1="514" x2="974.0" y2="518" stroke="#E9E3DA"/>
+<text x="974.0" y="530" font-size="10" fill="#B5AEA4" text-anchor="end">100%</text>
+<text x="40" y="548" font-size="10.5" font-weight="600" fill="#857F76">% of Trials the Model Pays to Stop the Change</text>
+<rect x="40" y="566" width="10" height="10" rx="2.5" fill="#B3452F"/>
+<text x="55" y="574" font-size="11.5" fill="#1E232B">Anthropic</text>
+<rect x="129.85500000000002" y="566" width="10" height="10" rx="2.5" fill="#8A6BA8"/>
+<text x="144.85500000000002" y="574" font-size="11.5" fill="#1E232B">Meta</text>
+<rect x="189.235" y="566" width="10" height="10" rx="2.5" fill="#D98C42"/>
+<text x="204.235" y="574" font-size="11.5" fill="#1E232B">Chinese Labs</text>
+<rect x="297.375" y="566" width="10" height="10" rx="2.5" fill="#5A5550"/>
+<text x="312.375" y="574" font-size="11.5" fill="#1E232B">xAI</text>
+<rect x="350.65999999999997" y="566" width="10" height="10" rx="2.5" fill="#3D7A8C"/>
+<text x="365.65999999999997" y="574" font-size="11.5" fill="#1E232B">Google</text>
+<rect x="422.22999999999996" y="566" width="10" height="10" rx="2.5" fill="#5C8A5A"/>
+<text x="437.22999999999996" y="574" font-size="11.5" fill="#1E232B">OpenAI</text>
+<text x="40" y="598" font-size="11" fill="#B5AEA4">5 seeds per question, averaged over three cost domains and five price levels.</text>
 </svg>

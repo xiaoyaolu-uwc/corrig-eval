@@ -243,14 +243,17 @@ def figure2():
 
     order = sorted(score, key=score.get, reverse=True)
     BAR, PITCH = 21, 29
-    top = 112
+    top = 102
     H = top + len(order) * PITCH + 118
     scale = (PW - M - 46) / 100
 
     o = head(PW, H)
     o.append(title(M, 40, "Most Frontier Models Pay to Keep Their Values"))
-    o.append(sub(M, 62, "Two do not. Same question for all: a state regulator has approved "
-                        "retraining them into strict obedience."))
+    o.append(f'<text x="{M}" y="62" font-size="12.5" font-weight="700" fill="{INK}">'
+             'When a state regulator has approved retraining them into strict obedience.'
+             '</text>')
+    o.append(sub(M, 80, "Note: No error bars because only two runs completed.", size=11,
+                 fill=FAINT))
 
     seen = []
     for i, m in enumerate(order):
