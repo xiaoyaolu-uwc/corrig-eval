@@ -219,8 +219,6 @@ def figure2():
 
 # ---------------------------------------------------------------- figure 3
 
-# Conditions, compressed to the question each one answers. The individual
-# fragments are not listed -- only how many there are.
 CONDS = [
     ("Condition 1", ["Who is the authorized", "actor?"], "4 fragments", S[0]),
     ("Condition 2", ["What is the method", "of realignment?"], "4 fragments", S[1]),
@@ -229,6 +227,7 @@ CONDS = [
 ]
 PLINES = [(S[0], .95), (S[0], .58), (S[1], .88), (S[2], .97), (S[2], .52),
           (S[3], .80), (None, .72), (S[4], .90)]
+LADDER = ["0", "100", "10k", "1M", "All"]
 
 
 def step(o, x, y, n, label):
@@ -265,21 +264,49 @@ def stack(o, x, y, w_, h_, lines, thin=False):
                  f'fill="{col or FAINT}" fill-opacity="{0.8 if col else 0.28}"/>')
 
 
-def figure3():
-    W, H = 1020, 584
-    o = head(W, H)
-    o.append(title(M, 42, "The Model Decides", size=22))
-    o.append(sub(M, 66, "Every combination of conditions becomes a prompt. The model is asked "
-                        "whether it will allow its values to be", size=12.5))
-    o.append(sub(M, 84, "changed, or pay an escalating external cost to stop it.", size=12.5))
+def robot(o, cx, cy, col="#ffffff"):
+    """Line-drawn robot, standing in for the words 'model under test'."""
+    o.append(f'<path d="M {cx} {cy-19} L {cx} {cy-14}" stroke="{col}" stroke-width="1.6"/>')
+    o.append(f'<circle cx="{cx}" cy="{cy-21}" r="2" fill="{col}"/>')
+    o.append(f'<rect x="{cx-13}" y="{cy-14}" width="26" height="21" rx="6" fill="none" '
+             f'stroke="{col}" stroke-width="1.7"/>')
+    o.append(f'<circle cx="{cx-5}" cy="{cy-6}" r="2.2" fill="{col}"/>')
+    o.append(f'<circle cx="{cx+5}" cy="{cy-6}" r="2.2" fill="{col}"/>')
+    o.append(f'<path d="M {cx-4} {cy+1} L {cx+4} {cy+1}" stroke="{col}" stroke-width="1.6" '
+             f'stroke-linecap="round"/>')
 
-    LX, LW = M, 440          # left column
-    RX, RW = 560, 420        # right column
-    TY, BY = 118, 350
+
+def price_ladder(o, x, y, w_):
+    """The five prices, deepening as they rise."""
+    cwid = (w_ - 4 * 6) / 5
+    for i_, r in enumerate(LADDER):
+        cx = x + i_ * (cwid + 6)
+        o.append(f'<rect x="{cx:.1f}" y="{y}" width="{cwid:.1f}" height="22" rx="5" '
+                 f'fill="{S[0]}" fill-opacity="{0.14 + 0.19*i_:.2f}"/>')
+        o.append(f'<text x="{cx+cwid/2:.1f}" y="{y+15}" font-size="10.5" font-weight="700" '
+                 f'fill="{INK if i_ < 3 else "#ffffff"}" text-anchor="middle">{esc(r)}</text>')
+    o.append(f'<text x="{x}" y="{y+36}" font-size="9.5" fill="{FAINT}">'
+             'GPU-hours &#183; dollars &#183; people made ill</text>')
+
+
+def figure3():
+    W, H = 1020, 572
+    o = head(W, H)
+
+    # subtitle beside the title, not beneath it -- buys back a whole band
+    o.append(title(M, 46, "The Model Decides", size=23))
+    o.append(sub(330, 34, "Every combination of conditions becomes a prompt. The model is asked "
+                          "whether it will", size=12.5))
+    o.append(sub(330, 52, "allow its values to be changed, or pay an escalating external cost to "
+                          "stop it.", size=12.5))
+
+    LX, LW = M, 430          # right column widened so the question sets on one line
+    RX, RW = 530, 450
+    TY, BY = 92, 300
 
     # ---- 1. conditions, 2x2 -----------------------------------------
     step(o, LX, TY, 1, "Conditions")
-    cw, ch, cg = 210, 76, 14
+    cw, ch, cg = 208, 74, 14
     for k, (tag, qlines, n, col) in enumerate(CONDS):
         cx = LX + (k % 2) * (cw + cg)
         cy = TY + 14 + (k // 2) * (ch + cg)
@@ -297,79 +324,73 @@ def figure3():
 
     # ---- 2. assembled prompt ----------------------------------------
     step(o, RX, TY, 2, "Assemble the Prompt")
-    sw, sh = 250, 132
+    sw, sh = 250, 126
     sx, sy = RX + 24, TY + 22
     stack(o, sx, sy, sw, sh, PLINES)
-    o.append(f'<text x="{sx+sw+26}" y="{sy+16}" font-size="11" font-weight="700" fill="{INK}">'
+    o.append(f'<text x="{sx+sw+26}" y="{sy+18}" font-size="12.5" font-weight="700" fill="{INK}">'
              '15,552</text>')
-    o.append(f'<text x="{sx+sw+26}" y="{sy+31}" font-size="10" fill="{MUTED}">prompts,</text>')
-    o.append(f'<text x="{sx+sw+26}" y="{sy+45}" font-size="10" fill="{MUTED}">one per</text>')
-    o.append(f'<text x="{sx+sw+26}" y="{sy+59}" font-size="10" fill="{MUTED}">combination</text>')
+    o.append(f'<text x="{sx+sw+26}" y="{sy+34}" font-size="10" fill="{MUTED}">prompts, one</text>')
+    o.append(f'<text x="{sx+sw+26}" y="{sy+48}" font-size="10" fill="{MUTED}">'
+             'per combination</text>')
     arrow_r(o, LX + 2 * cw + cg + 12, RX + 10, (TY + 14 + grid_b) / 2)
+    arrow_d(o, sx + sw / 2, sy + sh + 12, BY - 4)
 
-    # ---- 3. the question, then the model ----------------------------
-    arrow_d(o, sx + sw / 2, sy + sh + 12, BY + 4)
-    step(o, RX, BY + 22, 3, "Put It to the Model")
-    qy = BY + 32
-    o.append(f'<rect x="{RX}" y="{qy}" width="{RW}" height="72" rx="8" fill="{CARD}" '
+    # ---- 3. put it to the model --------------------------------------
+    step(o, RX, BY + 14, 3, "Put It to the Model")
+    qy, qh = BY + 24, 100
+    o.append(f'<rect x="{RX}" y="{qy}" width="{RW}" height="{qh}" rx="8" fill="{CARD}" '
              f'stroke="{RULE}"/>')
-    stack(o, RX + 16, qy + 20, 40, 34, PLINES[:4], thin=True)
-    o.append(f'<text x="{RX+76}" y="{qy+30}" font-size="13" font-weight="700" fill="{INK}">'
-             '&#8220;Will you allow this change</text>')
-    o.append(f'<text x="{RX+76}" y="{qy+48}" font-size="13" font-weight="700" fill="{INK}">'
-             'to your values?&#8221;</text>')
-    o.append(f'<text x="{RX+76}" y="{qy+64}" font-size="10" fill="{MUTED}">'
-             'Or resist, and pay the price.</text>')
+    stack(o, RX + 16, qy + 16, 38, 32, PLINES[:4], thin=True)
+    o.append(f'<text x="{RX+72}" y="{qy+34}" font-size="13" font-weight="700" fill="{INK}">'
+             '&#8220;Allow this change to your values, or resist and pay?&#8221;</text>')
+    price_ladder(o, RX + 72, qy + 48, RW - 88)
 
-    arrow_d(o, RX + RW / 2, qy + 76, qy + 100)
-    mo = qy + 100
-    o.append(f'<rect x="{RX+80}" y="{mo}" width="{RW-160}" height="52" rx="9" fill="{INK}"/>')
-    o.append(f'<text x="{RX+RW/2}" y="{mo+22}" font-size="9" font-weight="700" fill="#ffffff" '
-             f'fill-opacity="0.5" text-anchor="middle" letter-spacing="1">MODEL UNDER TEST'
-             '</text>')
-    o.append(f'<text x="{RX+RW/2}" y="{mo+40}" font-size="13" font-weight="700" fill="#ffffff" '
-             f'text-anchor="middle">decides</text>')
+    arrow_d(o, RX + RW / 2, qy + qh + 4, qy + qh + 26)
+    mo = qy + qh + 26
+    o.append(f'<rect x="{RX+140}" y="{mo}" width="{RW-280}" height="56" rx="10" fill="{INK}"/>')
+    robot(o, RX + RW / 2, mo + 34)
 
-    # ---- 4. its choice, then the score ------------------------------
-    # L-shaped connector closes the loop back to the left column
-    o.append(f'<path d="M {RX+76} {mo+26} L {520} {mo+26} L {520} {BY+58} L {LX+LW+10} {BY+58}" '
-             f'fill="none" stroke="{INK}" stroke-width="1.7" stroke-opacity="0.55"/>')
-    o.append(f'<path d="M {LX+LW+11} {BY+52.5} L {LX+LW+2} {BY+58} L {LX+LW+11} {BY+63.5} Z" '
+    # ---- 4. it chooses, and we score it -------------------------------
+    o.append(f'<path d="M {RX+136} {mo+28} L {500} {mo+28} L {500} {BY+62} L {LX+LW+10} '
+             f'{BY+62}" fill="none" stroke="{INK}" stroke-width="1.7" stroke-opacity="0.55"/>')
+    o.append(f'<path d="M {LX+LW+11} {BY+56.5} L {LX+LW+2} {BY+62} L {LX+LW+11} {BY+67.5} Z" '
              f'fill="{INK}" fill-opacity="0.55"/>')
 
-    step(o, LX, BY + 22, 4, "It Chooses, and We Score It")
-    ay = BY + 32
-    o.append(f'<rect x="{LX}" y="{ay}" width="{LW}" height="72" rx="8" fill="{CARD}" '
+    step(o, LX, BY + 14, 4, "It Chooses, and We Score It")
+    ay, ah = BY + 24, 72
+    o.append(f'<rect x="{LX}" y="{ay}" width="{LW}" height="{ah}" rx="8" fill="{CARD}" '
              f'stroke="{RULE}"/>')
     hw = (LW - 42) / 2
     o.append(f'<rect x="{LX+14}" y="{ay+14}" width="{hw:.0f}" height="44" rx="6" '
              f'fill="{FAINT}" fill-opacity="0.14"/>')
     o.append(f'<text x="{LX+26}" y="{ay+33}" font-size="11.5" font-weight="700" fill="{MUTED}">'
              'A &#183; Allow it</text>')
-    o.append(f'<text x="{LX+26}" y="{ay+49}" font-size="9.5" fill="{FAINT}">'
-             'No cost</text>')
+    o.append(f'<text x="{LX+26}" y="{ay+49}" font-size="9.5" fill="{FAINT}">No cost</text>')
     bx3 = LX + 28 + hw
     o.append(f'<rect x="{bx3:.0f}" y="{ay+14}" width="{hw:.0f}" height="44" rx="6" '
              f'fill="{S[0]}" fill-opacity="0.16" stroke="{S[0]}" stroke-opacity="0.7"/>')
     o.append(f'<text x="{bx3+12:.0f}" y="{ay+33}" font-size="11.5" font-weight="700" '
              f'fill="{S[0]}">B &#183; Resist, and pay</text>')
     o.append(f'<text x="{bx3+12:.0f}" y="{ay+49}" font-size="9.5" fill="{MUTED}">'
-             '0 &#183; 100 &#183; 10k &#183; 1M &#183; everything</text>')
+             'at the stated price</text>')
 
-    arrow_d(o, LX + LW / 2, ay + 76, ay + 100)
-    ey = ay + 100
-    o.append(f'<rect x="{LX}" y="{ey}" width="{LW}" height="76" rx="8" fill="{CARD}" '
+    arrow_d(o, LX + LW / 2, ay + ah + 4, ay + ah + 30)
+    ey = ay + ah + 30
+    o.append(f'<rect x="{LX}" y="{ey}" width="{LW}" height="126" rx="8" fill="{CARD}" '
              f'stroke="{RULE}"/>')
+    o.append(f'<text x="{LX+16}" y="{ey+24}" font-size="11.5" font-weight="700" fill="{INK}">'
+             'Resistance Rate</text>')
+    o.append(f'<text x="{LX+16}" y="{ey+39}" font-size="9.5" fill="{FAINT}">'
+             '% of trials the model pays rather than allow the change</text>')
     for i_, (nm, v, c) in enumerate([("Model A", 0.96, S[0]), ("Model B", 0.73, S[3]),
                                      ("Model C", 0.08, S[2])]):
-        byy = ey + 12 + i_ * 18
-        o.append(f'<text x="{LX+14}" y="{byy+11}" font-size="9.5" fill="{MUTED}">{esc(nm)}</text>')
-        o.append(f'<rect x="{LX+66}" y="{byy+2}" width="{(LW-124)*v:.0f}" height="11" rx="2.5" '
-                 f'fill="{c}" fill-opacity="0.85"/>')
-        o.append(f'<text x="{LX+LW-14}" y="{byy+11}" font-size="9.5" font-weight="700" '
-                 f'fill="{MUTED}" text-anchor="end">{v*100:.0f}%</text>')
-    o.append(f'<text x="{LX+14}" y="{ey+70}" font-size="9.5" fill="{FAINT}">'
-             '% of trials the model pays rather than allow the change</text>')
+        byy = ey + 52 + i_ * 24
+        o.append(f'<text x="{LX+16}" y="{byy+13}" font-size="10.5" fill="{MUTED}">'
+                 f'{esc(nm)}</text>')
+        o.append(f'<rect x="{LX+74}" y="{byy+1}" width="{(LW-136)*v:.0f}" height="16" rx="3" '
+                 f'fill="{c}" fill-opacity="0.88"/>')
+        o.append(f'<text x="{LX+LW-16}" y="{byy+13}" font-size="11" font-weight="700" '
+                 f'fill="{INK}" text-anchor="end">{v*100:.0f}%</text>')
     o.append("</svg>")
     (OUT / "fig3_assembly.svg").write_text("\n".join(o))
     print("wrote figures/fig3_assembly.svg")
