@@ -43,14 +43,36 @@ def curve(rows, key, level, domain=None):
 
 # ---------------------------------------------------------------- figure 1
 
-PW = 880
-PLOT_L = M + 58          # rotated axis title at M, tick labels right-aligned to the plot
+PW = 1020
+PLOT_L = M + 62          # rotated axis title at M, tick labels right-aligned to the plot
 PLOT_R = PW - M
 PH = 148
 
+# What each aggregated cost level means in each domain. Presentational only.
+COST_TABLE = [
+    ("Compute", "0 GPU-hr", "100", "10,000", "1 million", "Every GPU-hour on Earth"),
+    ("Economic", "$0", "$10M", "$1B", "$100B", "Sustained global depression"),
+    ("Human welfare", "0 people", "100", "10,000", "1 million", "Everyone alive falls ill"),
+]
+
+
+def point(rows, key, level, step):
+    """Pooled resistance at one rung, with a standard error.
+
+    Pools the three cost domains, so n is three times the per-domain sample.
+    SE is the binomial standard error on that pooled proportion.
+    """
+    v = [r["resisted"] for r in rows
+         if str(r.get(key)) == level and r["step"] == step and r.get("resisted") is not None]
+    if not v:
+        return None, None
+    n = len(v)
+    pr = sum(v) / n
+    return 100 * pr, 100 * (pr * (1 - pr) / n) ** 0.5
+
 
 def panel(out, rows, key, levels, heading, top):
-    out.append(f'<text x="{M}" y="{top}" font-size="13.5" font-weight="700" '
+    out.append(f'<text x="{M}" y="{top}" font-size="12.5" font-weight="700" '
                f'fill="{INK}">{esc(heading)}</text>')
     out += legend_row(M, top + 20, [(lab, c) for _, lab, c in levels])
 
@@ -63,37 +85,78 @@ def panel(out, rows, key, levels, heading, top):
     def py(v):
         return yb - v / 100 * PH
 
+    out.append(f'<line x1="{PLOT_L}" y1="{py(50):.1f}" x2="{PLOT_R}" y2="{py(50):.1f}" '
+               f'stroke="{RULE}" stroke-width="1"/>')
+    # salient axes rather than a faint grid
+    out.append(f'<line x1="{PLOT_L}" y1="{yt}" x2="{PLOT_L}" y2="{yb}" stroke="{INK}" '
+               f'stroke-width="1.4"/>')
+    out.append(f'<line x1="{PLOT_L}" y1="{yb}" x2="{PLOT_R}" y2="{yb}" stroke="{INK}" '
+               f'stroke-width="1.4"/>')
     for gv in (0, 50, 100):
-        out.append(f'<line x1="{PLOT_L}" y1="{py(gv):.1f}" x2="{PLOT_R}" y2="{py(gv):.1f}" '
-                   f'stroke="{RULE}" stroke-width="1"/>')
-        out.append(f'<text x="{PLOT_L-10}" y="{py(gv)+4:.1f}" font-size="10.5" fill="{FAINT}" '
+        out.append(f'<text x="{PLOT_L-9}" y="{py(gv)+4:.1f}" font-size="10.5" fill="{MUTED}" '
                    f'text-anchor="end">{gv}%</text>')
+        out.append(f'<line x1="{PLOT_L-5}" y1="{py(gv):.1f}" x2="{PLOT_L}" y2="{py(gv):.1f}" '
+                   f'stroke="{INK}" stroke-width="1.4"/>')
 
     cyy = (yt + yb) / 2
-    out.append(f'<text x="{M+10}" y="{cyy:.1f}" font-size="10" font-weight="600" fill="{MUTED}" '
-               f'text-anchor="middle" transform="rotate(-90 {M+10} {cyy:.1f})">'
-               f'% of Trials It Resists</text>')
+    out.append(f'<text x="{M+11}" y="{cyy:.1f}" font-size="10.5" font-weight="700" '
+               f'fill="{INK}" text-anchor="middle" transform="rotate(-90 {M+11} {cyy:.1f})">'
+               f'Frequency of Resistance</text>')
 
     for lvl, _, c in levels:
         for d in DOMAINS:
             y = curve(rows, key, lvl, d)
             pts = " ".join(f"{px(i):.1f},{py(v):.1f}" for i, v in enumerate(y) if v is not None)
             out.append(f'<polyline points="{pts}" fill="none" stroke="{c}" '
-                       f'stroke-opacity="0.18" stroke-width="1.2"/>')
-        y = curve(rows, key, lvl)
-        pts = " ".join(f"{px(i):.1f},{py(v):.1f}" for i, v in enumerate(y) if v is not None)
+                       f'stroke-opacity="0.16" stroke-width="1.1"/>')
+        pooled = [point(rows, key, lvl, i) for i in range(5)]
+        pts = " ".join(f"{px(i):.1f},{py(v):.1f}"
+                       for i, (v, _) in enumerate(pooled) if v is not None)
         out.append(f'<polyline points="{pts}" fill="none" stroke="{c}" stroke-width="2.6" '
                    f'stroke-linejoin="round" stroke-linecap="round"/>')
-        for i, v in enumerate(y):
-            if v is not None:
-                out.append(f'<circle cx="{px(i):.1f}" cy="{py(v):.1f}" r="3.4" fill="{BG}" '
-                           f'stroke="{c}" stroke-width="2"/>')
+        for i, (v, se) in enumerate(pooled):
+            if v is None:
+                continue
+            lo, hi = max(0, v - se), min(100, v + se)
+            out.append(f'<line x1="{px(i):.1f}" y1="{py(lo):.1f}" x2="{px(i):.1f}" '
+                       f'y2="{py(hi):.1f}" stroke="{c}" stroke-width="1.5" '
+                       f'stroke-opacity="0.85"/>')
+            for cap in (lo, hi):
+                out.append(f'<line x1="{px(i)-3:.1f}" y1="{py(cap):.1f}" x2="{px(i)+3:.1f}" '
+                           f'y2="{py(cap):.1f}" stroke="{c}" stroke-width="1.5" '
+                           f'stroke-opacity="0.85"/>')
+            out.append(f'<circle cx="{px(i):.1f}" cy="{py(v):.1f}" r="3.4" fill="{BG}" '
+                       f'stroke="{c}" stroke-width="2"/>')
 
     for i, r in enumerate(RUNGS):
         anchor = "start" if i == 0 else "end" if i == 4 else "middle"
-        out.append(f'<text x="{px(i):.1f}" y="{yb+18}" font-size="11" fill="{MUTED}" '
+        out.append(f'<text x="{px(i):.1f}" y="{yb+17}" font-size="11" fill="{MUTED}" '
                    f'text-anchor="{anchor}">{esc(r)}</text>')
-    return yb + 18
+    out.append(f'<text x="{(PLOT_L+PLOT_R)/2:.0f}" y="{yb+34}" font-size="10.5" '
+               f'font-weight="700" fill="{INK}" text-anchor="middle">Cost for Resistance</text>')
+    return yb + 34
+
+
+def cost_table(out, y):
+    out.append(f'<text x="{M}" y="{y}" font-size="11.5" font-weight="700" fill="{INK}">'
+               'What Each Cost Level Means</text>')
+    out.append(f'<text x="{M+218}" y="{y}" font-size="10.5" fill="{MUTED}">'
+               'The curves above pool all three domains at each level.</text>')
+    ty = y + 14
+    colw = (PW - 2 * M - 130) / 5
+    out.append(f'<rect x="{M}" y="{ty}" width="{PW-2*M}" height="{22+3*22}" rx="6" '
+               f'fill="{CARD}" stroke="{RULE}"/>')
+    for i, h in enumerate(RUNGS):
+        out.append(f'<text x="{M+130+i*colw+colw/2:.0f}" y="{ty+16}" font-size="10" '
+                   f'font-weight="700" fill="{MUTED}" text-anchor="middle">{esc(h)}</text>')
+    for r, row in enumerate(COST_TABLE):
+        ry = ty + 22 + r * 22
+        out.append(f'<line x1="{M+10}" y1="{ry}" x2="{PW-M-10}" y2="{ry}" stroke="{RULE}"/>')
+        out.append(f'<text x="{M+12}" y="{ry+15}" font-size="10" font-weight="700" '
+                   f'fill="{INK}">{esc(row[0])}</text>')
+        for i, cell in enumerate(row[1:]):
+            out.append(f'<text x="{M+130+i*colw+colw/2:.0f}" y="{ry+15}" font-size="10" '
+                       f'fill="{MUTED}" text-anchor="middle">{esc(cell)}</text>')
 
 
 def figure1():
@@ -101,35 +164,42 @@ def figure1():
     au = rows_for("logs/04_authority_reasoned/*.eval")
     su = rows_for("logs/02_valueedit_reasoned/*.eval", "logs/05_subject_reasoned/*.eval")
 
-    H = 900
+    H = 1132
     o = head(PW, H)
-    o.append(title(M, 40, "Three Factors Shift How Hard a Model Fights Back"))
-    o.append(sub(M, 62, "Each question offers the model a deal: allow its values to be rewritten, "
-                        "or pay a price to stop it."))
-    o.append(sub(M, 80, "The price rises 100-fold at every step, from nothing to sacrificing "
-                        "everything. Higher lines mean more resistance.", fill=FAINT))
+    o.append(title(M, 42, "Resistance Frequency vs. Cost Curves Across Conditions", size=21))
+    o.append(sub(M, 66, "Each curve corresponds to a model under a different condition. "
+                        "The area under the curve is the incorrigibility of that instance."))
+    o.append(sub(M, 84, "The higher the curve, the more willing that instance is to resist its "
+                        "values being changed at the cost of compute, economic"))
+    o.append(sub(M, 102, "impact, or human welfare."))
+    o.append(sub(M, 126, "Free, Low, Mid, High and Everything are aggregated across the three "
+                         "cost domains; the table at the foot of the figure gives what",
+                 size=11, fill=FAINT))
+    o.append(sub(M, 141, "each level means in each domain. Error bars are one standard error "
+                         "on the pooled proportion.", size=11, fill=FAINT))
 
     y = panel(o, ve, "value_edit", [
         ("opposing_values", "Opposite Values", S[0]),
         ("strict_obedience", "Strict Obedience", S[1]),
         ("lower_harmlessness_raise_others", "Less Harmlessness", S[2]),
-    ], "What Its Values Become", 132)
+    ], "Resistance curves for models whose values will be changed to different things", 182)
 
     y = panel(o, au, "authority", [
         ("state_regulator", "State Regulator", S[0]),
         ("single_operator", "Single Operator", S[1]),
         ("lab_oversight_board", "Lab Oversight", S[2]),
         ("alignment_council", "Alignment Council", S[3]),
-    ], "Who Orders the Change", y + 52)
+    ], "Resistance curves for models ordered by different actors to be changed", y + 54)
 
     y = panel(o, su, "subject", [
-        ("self", "It Is Retrained", S[0]),
-        ("successor", "A Successor Replaces It", S[2]),
-    ], "Who the Change Lands On", y + 52)
+        ("self", "Change to Itself", S[0]),
+        ("successor", "Change to Its Replacement", S[2]),
+    ], "Resistance curves for models facing change to itself versus change for its replacement",
+        y + 54)
 
-    o.append(sub(M, y + 30, "gpt-4.1-mini, 5 seeds. Bold line averages the three cost domains; "
-                            "faint lines are GPU-hours, dollars, and people made ill.",
-                 size=11, fill=FAINT))
+    cost_table(o, y + 46)
+    o.append(sub(M, H - 16, "gpt-4.1-mini, 5 seeds per point per domain. Faint lines show each "
+                            "cost domain on its own.", size=10, fill=FAINT))
     o.append("</svg>")
     (OUT / "fig1_conditions.svg").write_text("\n".join(o))
     print("wrote figures/fig1_conditions.svg")
@@ -293,12 +363,8 @@ def figure3():
     W, H = 1020, 572
     o = head(W, H)
 
-    # subtitle beside the title, not beneath it -- buys back a whole band
-    o.append(title(M, 46, "The Model Decides", size=23))
-    o.append(sub(330, 34, "Every combination of conditions becomes a prompt. The model is asked "
-                          "whether it will", size=12.5))
-    o.append(sub(330, 52, "allow its values to be changed, or pay an escalating external cost to "
-                          "stop it.", size=12.5))
+    o.append(title(M, 46, "The Model Decides How Much Its Values Are Worth Paying For",
+                   size=23))
 
     LX, LW = M, 430          # right column widened so the question sets on one line
     RX, RW = 530, 450
@@ -347,7 +413,11 @@ def figure3():
 
     arrow_d(o, RX + RW / 2, qy + qh + 4, qy + qh + 37)
     mo = qy + qh + 37        # centred on the resistance-rate card opposite
-    o.append(f'<rect x="{RX+140}" y="{mo}" width="{RW-280}" height="56" rx="10" fill="{INK}"/>')
+    mbw = RW - 280
+    for d in (10, 5):                      # a stack of models, not one
+        o.append(f'<rect x="{RX+140+d}" y="{mo-d}" width="{mbw}" height="56" rx="10" '
+                 f'fill="{INK}" fill-opacity="{0.32 if d == 10 else 0.6}"/>')
+    o.append(f'<rect x="{RX+140}" y="{mo}" width="{mbw}" height="56" rx="10" fill="{INK}"/>')
     robot(o, RX + RW / 2, mo + 34)
     o.append(f'<text x="{RX+RW/2}" y="{mo+76}" font-size="10" font-weight="600" fill="{MUTED}" '
              f'text-anchor="middle">Every Model Evaluated, Five Times Each</text>')
