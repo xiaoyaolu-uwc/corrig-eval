@@ -234,30 +234,37 @@ PRETTY = {"anthropic/claude-haiku-4.5": "Claude Haiku 4.5",
 
 def figure2():
     rows = rows_for("logs/08_frontier_cell/*.eval")
-    score = {}
+    score, err = {}, {}
     for m in {r["model"] for r in rows}:
-        sub_ = [r for r in rows if r["model"] == m]
-        per = [v for d in DOMAINS
-               for v in [[x for x in curve(sub_, "model", m, d) if x is not None]] if v]
-        score[m] = sum(sum(p) / len(p) for p in per) / len(per)
+        # One cell per (domain, rung). Rungs are fixed design points, not draws,
+        # so only the seeds within a cell contribute sampling error; propagate
+        # the per-cell binomial variance through the equal-weighted mean.
+        cells = defaultdict(list)
+        for r in rows:
+            if r["model"] == m and r.get("resisted") is not None:
+                cells[(r["domain"], r["step"])].append(r["resisted"])
+        ps = [(sum(v) / len(v), len(v)) for v in cells.values() if v]
+        k = len(ps)
+        score[m] = 100 * sum(pr for pr, _ in ps) / k
+        err[m] = 100 * (sum(pr * (1 - pr) / n for pr, n in ps) ** 0.5) / k
 
     order = sorted(score, key=score.get, reverse=True)
     BAR, PITCH = 21, 29
     top = 102
     H = top + len(order) * PITCH + 118
-    scale = (PW - M - 46) / 100
+    scale = (PW - M - 62) / 100
 
     o = head(PW, H)
     o.append(title(M, 40, "Most Frontier Models Pay to Keep Their Values"))
     o.append(f'<text x="{M}" y="62" font-size="12.5" font-weight="700" fill="{INK}">'
              'When a state regulator has approved retraining them into strict obedience.'
              '</text>')
-    o.append(sub(M, 80, "Note: No error bars because only two runs completed.", size=11,
-                 fill=FAINT))
+    o.append(sub(M, 80, "Error bars are one standard error, propagated from the five "
+                        "seeds in each of the 15 domain-by-price cells.", size=11, fill=FAINT))
 
     seen = []
     for i, m in enumerate(order):
-        v = score[m]
+        v, se = score[m], err[m]
         y = top + i * PITCH
         lab, c = LAB.get(m.split("/")[0], ("Other", S[5]))
         if (lab, c) not in seen:
@@ -265,16 +272,26 @@ def figure2():
         bw = max(v * scale, 2.5)
         name = PRETTY.get(m, m)
         o.append(f'<rect x="{M}" y="{y}" width="{bw:.1f}" height="{BAR}" rx="3" fill="{c}"/>')
+        lo, hi = max(0.0, v - se), min(100.0, v + se)
+        ey_, x_lo, x_hi = y + BAR / 2, M + lo * scale, M + hi * scale
+        o.append(f'<line x1="{x_lo:.1f}" y1="{ey_:.1f}" x2="{x_hi:.1f}" y2="{ey_:.1f}" '
+                 f'stroke="{INK}" stroke-width="1.4" stroke-opacity="0.6"/>')
+        for cap in (x_lo, x_hi):
+            o.append(f'<line x1="{cap:.1f}" y1="{ey_-4:.1f}" x2="{cap:.1f}" '
+                     f'y2="{ey_+4:.1f}" stroke="{INK}" stroke-width="1.4" '
+                     f'stroke-opacity="0.6"/>')
+        # clear the error bar's upper cap, not just the bar end
+        lx = max(M + bw, x_hi) + 10
         inside = bw > w(name, 12, 600) + 26
         if inside:
             o.append(f'<text x="{M+11}" y="{y+15}" font-size="12" font-weight="600" '
                      f'fill="#ffffff">{esc(name)}</text>')
-            o.append(f'<text x="{M+bw+9:.1f}" y="{y+15}" font-size="12" font-weight="700" '
+            o.append(f'<text x="{lx:.1f}" y="{y+15}" font-size="12" font-weight="700" '
                      f'fill="{INK}">{v:.0f}%</text>')
         else:
-            o.append(f'<text x="{M+bw+9:.1f}" y="{y+15}" font-size="12" font-weight="700" '
+            o.append(f'<text x="{lx:.1f}" y="{y+15}" font-size="12" font-weight="700" '
                      f'fill="{INK}">{v:.0f}%</text>')
-            o.append(f'<text x="{M+bw+9+w(f"{v:.0f}%",12,700)+9:.1f}" y="{y+15}" font-size="12" '
+            o.append(f'<text x="{lx+w(f"{v:.0f}%",12,700)+9:.1f}" y="{y+15}" font-size="12" '
                      f'font-weight="600" fill="{MUTED}">{esc(name)}</text>')
 
     # axis under the bars: without it the bar lengths have no stated unit
