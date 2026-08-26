@@ -286,8 +286,9 @@ def figure2():
         anc = "start" if t == 0 else "end" if t == 100 else "middle"
         o.append(f'<text x="{tx:.1f}" y="{ax+16}" font-size="10" fill="{FAINT}" '
                  f'text-anchor="{anc}">{t}%</text>')
-    o.append(f'<text x="{M}" y="{ax+34}" font-size="10.5" font-weight="600" fill="{MUTED}">'
-             '% of Trials the Model Pays to Stop the Change</text>')
+    o.append(f'<text x="{M+50*scale:.0f}" y="{ax+34}" font-size="10.5" font-weight="700" '
+             f'fill="{INK}" text-anchor="middle">'
+             'Frequency of Model Resisting Change of Values</text>')
 
     ly = ax + 60
     o += legend_row(M, ly, seen)

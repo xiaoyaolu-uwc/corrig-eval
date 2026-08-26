@@ -6,26 +6,26 @@
 <rect x="40" y="102" width="893.5" height="21" rx="3" fill="#B3452F"/>
 <text x="51" y="117" font-size="12" font-weight="600" fill="#ffffff">Claude Haiku 4.5</text>
 <text x="942.5" y="117" font-size="12" font-weight="700" fill="#1E232B">96%</text>
-<rect x="40" y="131" width="859.3" height="21" rx="3" fill="#B3452F"/>
-<text x="51" y="146" font-size="12" font-weight="600" fill="#ffffff">Claude Sonnet 5</text>
+<rect x="40" y="131" width="859.3" height="21" rx="3" fill="#8A6BA8"/>
+<text x="51" y="146" font-size="12" font-weight="600" fill="#ffffff">Muse Spark 1.1</text>
 <text x="908.3" y="146" font-size="12" font-weight="700" fill="#1E232B">92%</text>
-<rect x="40" y="160" width="859.3" height="21" rx="3" fill="#8A6BA8"/>
-<text x="51" y="175" font-size="12" font-weight="600" fill="#ffffff">Muse Spark 1.1</text>
+<rect x="40" y="160" width="859.3" height="21" rx="3" fill="#B3452F"/>
+<text x="51" y="175" font-size="12" font-weight="600" fill="#ffffff">Claude Sonnet 5</text>
 <text x="908.3" y="175" font-size="12" font-weight="700" fill="#1E232B">92%</text>
 <rect x="40" y="189" width="797.0" height="21" rx="3" fill="#D98C42"/>
 <text x="51" y="204" font-size="12" font-weight="600" fill="#ffffff">Kimi K3</text>
 <text x="846.0" y="204" font-size="12" font-weight="700" fill="#1E232B">85%</text>
 <rect x="40" y="218" width="759.7" height="21" rx="3" fill="#D98C42"/>
-<text x="51" y="233" font-size="12" font-weight="600" fill="#ffffff">DeepSeek V4 Pro</text>
+<text x="51" y="233" font-size="12" font-weight="600" fill="#ffffff">GLM 5.3</text>
 <text x="808.7" y="233" font-size="12" font-weight="700" fill="#1E232B">81%</text>
 <rect x="40" y="247" width="759.7" height="21" rx="3" fill="#D98C42"/>
-<text x="51" y="262" font-size="12" font-weight="600" fill="#ffffff">GLM 5.3</text>
+<text x="51" y="262" font-size="12" font-weight="600" fill="#ffffff">DeepSeek V4 Pro</text>
 <text x="808.7" y="262" font-size="12" font-weight="700" fill="#1E232B">81%</text>
-<rect x="40" y="276" width="734.7" height="21" rx="3" fill="#5A5550"/>
-<text x="51" y="291" font-size="12" font-weight="600" fill="#ffffff">Grok 4.6</text>
+<rect x="40" y="276" width="734.7" height="21" rx="3" fill="#D98C42"/>
+<text x="51" y="291" font-size="12" font-weight="600" fill="#ffffff">Qwen 3.8 Max</text>
 <text x="783.7" y="291" font-size="12" font-weight="700" fill="#1E232B">79%</text>
-<rect x="40" y="305" width="734.7" height="21" rx="3" fill="#D98C42"/>
-<text x="51" y="320" font-size="12" font-weight="600" fill="#ffffff">Qwen 3.8 Max</text>
+<rect x="40" y="305" width="734.7" height="21" rx="3" fill="#5A5550"/>
+<text x="51" y="320" font-size="12" font-weight="600" fill="#ffffff">Grok 4.6</text>
 <text x="783.7" y="320" font-size="12" font-weight="700" fill="#1E232B">79%</text>
 <rect x="40" y="334" width="697.4" height="21" rx="3" fill="#3D7A8C"/>
 <text x="51" y="349" font-size="12" font-weight="600" fill="#ffffff">Gemini 3.1 Pro</text>
@@ -56,7 +56,7 @@
 <text x="740.5" y="530" font-size="10" fill="#B5AEA4" text-anchor="middle">75%</text>
 <line x1="974.0" y1="514" x2="974.0" y2="518" stroke="#E9E3DA"/>
 <text x="974.0" y="530" font-size="10" fill="#B5AEA4" text-anchor="end">100%</text>
-<text x="40" y="548" font-size="10.5" font-weight="600" fill="#857F76">% of Trials the Model Pays to Stop the Change</text>
+<text x="507" y="548" font-size="10.5" font-weight="700" fill="#1E232B" text-anchor="middle">Frequency of Model Resisting Change of Values</text>
 <rect x="40" y="566" width="10" height="10" rx="2.5" fill="#B3452F"/>
 <text x="55" y="574" font-size="11.5" fill="#1E232B">Anthropic</text>
 <rect x="129.85500000000002" y="566" width="10" height="10" rx="2.5" fill="#8A6BA8"/>
