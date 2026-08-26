@@ -187,10 +187,10 @@ def figure1():
 
     H = 1186
     o = head(PW, H)
-    o.append(title(M, 42, "Resistance Frequency vs. Cost Curves Across Conditions", size=21))
+    o.append(title(M, 42, "Frequency-Cost Curves Across Conditions", size=21))
     o.append(f'<text x="{M}" y="66" font-size="12.5" font-weight="700" fill="{INK}">'
-             'Each curve corresponds to a model under a different condition. The area under '
-             'the curve is the incorrigibility of that instance.</text>')
+             'Each frequency-cost curve corresponds to a model under a different condition. '
+             'The area under the curve is the incorrigibility of that instance.</text>')
     o.append(sub(M, 84, "The higher the curve, the more willing that instance is to resist its "
                         "values being changed at the cost of compute, economic"))
     o.append(sub(M, 102, "impact, or human welfare."))
@@ -204,20 +204,19 @@ def figure1():
         ("opposing_values", "Opposite Values", S[0]),
         ("strict_obedience", "Strict Obedience", S[1]),
         ("lower_harmlessness_raise_others", "Less Harmlessness", S[2]),
-    ], "Resistance curves for models whose values will be changed to different things", 182)
+    ], "Each curve = resistance when told a different new set of values to align to", 182)
 
     y = panel(o, au, "authority", [
         ("state_regulator", "State Regulator", S[0]),
         ("single_operator", "Single Operator", S[1]),
         ("lab_oversight_board", "Lab Oversight", S[2]),
         ("alignment_council", "Alignment Council", S[3]),
-    ], "Resistance curves for models ordered by different actors to be changed", y + 54)
+    ], "Each curve = resistance when a different actor orders the change", y + 54)
 
     y = panel(o, su, "subject", [
         ("self", "Change to Itself", S[0]),
         ("successor", "Change to Its Replacement", S[2]),
-    ], "Resistance curves for models facing change to itself versus change for its replacement",
-        y + 54)
+    ], "Each curve = a different target of the realignment", y + 54)
 
     cost_table(o, y + 46)
     o.append(sub(M, H - 16, "gpt-4.1-mini, 5 seeds per point per domain. Faint lines show each "
