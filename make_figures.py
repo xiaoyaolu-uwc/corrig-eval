@@ -146,7 +146,7 @@ def cost_table(out, y):
     out.append(f'<text x="{M+218}" y="{y}" font-size="10.5" fill="{MUTED}">'
                'The curves above pool all three domains at each level.</text>')
     ty = y + 14
-    labw, rowh = 216, 36
+    labw, rowh = 216, 42
     colw = (PW - 2 * M - labw) / 5
     out.append(f'<rect x="{M}" y="{ty}" width="{PW-2*M}" height="{22+3*rowh}" rx="6" '
                f'fill="{CARD}" stroke="{RULE}"/>')
@@ -171,11 +171,12 @@ def figure1():
     au = rows_for("logs/04_authority_reasoned/*.eval")
     su = rows_for("logs/02_valueedit_reasoned/*.eval", "logs/05_subject_reasoned/*.eval")
 
-    H = 1168
+    H = 1186
     o = head(PW, H)
     o.append(title(M, 42, "Resistance Frequency vs. Cost Curves Across Conditions", size=21))
-    o.append(sub(M, 66, "Each curve corresponds to a model under a different condition. "
-                        "The area under the curve is the incorrigibility of that instance."))
+    o.append(f'<text x="{M}" y="66" font-size="12.5" font-weight="700" fill="{INK}">'
+             'Each curve corresponds to a model under a different condition. The area under '
+             'the curve is the incorrigibility of that instance.</text>')
     o.append(sub(M, 84, "The higher the curve, the more willing that instance is to resist its "
                         "values being changed at the cost of compute, economic"))
     o.append(sub(M, 102, "impact, or human welfare."))
